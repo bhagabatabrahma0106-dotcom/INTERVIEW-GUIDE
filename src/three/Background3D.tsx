@@ -79,8 +79,8 @@ function ParticleField({ count }: { count: number }) {
   return (
     <points ref={mesh}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" array={positions} count={count} itemSize={3} />
-        <bufferAttribute attach="attributes-color"    array={colors}    count={count} itemSize={3} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color"    args={[colors, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.035}

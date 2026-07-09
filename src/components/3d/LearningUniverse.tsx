@@ -82,9 +82,7 @@ function Scene({ onSelectCategory, activeCategoryId }: LearningUniverseProps) {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            array={new Float32Array(nodePositions.flatMap(p => [p.x, p.y, p.z, 0, 0, 0]))}
-            count={categories.length * 2}
-            itemSize={3}
+            args={[new Float32Array(nodePositions.flatMap(p => [p.x, p.y, p.z, 0, 0, 0])), 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial color="rgba(255,255,255,0.05)" transparent />

@@ -47,9 +47,14 @@ export default function TopicNode({ position, color, name, progress, onClick, is
             e.stopPropagation();
             onClick();
           }}
-          onPointerOver={() => setHovered(true)}
-          onPointerOut={() => setHovered(false)}
-          className="cursor-pointer"
+          onPointerOver={() => {
+            setHovered(true);
+            document.body.style.cursor = 'pointer';
+          }}
+          onPointerOut={() => {
+            setHovered(false);
+            document.body.style.cursor = 'auto';
+          }}
         >
           <MeshDistortMaterial
             color={color}
