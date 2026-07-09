@@ -22,9 +22,6 @@ export interface Question {
 }
 
 export const questions: Question[] = [
-  // ============================================
-  // SECTION 1: SQL BASICS (Q1–Q10)
-  // ============================================
   {
     id: 1,
     section: 1,
@@ -119,7 +116,7 @@ GROUP BY Department;`,
     category: 'SQL',
     question: 'What is ORDER BY?',
     answer: 'ORDER BY sorts the result set by one or more columns, ascending (ASC, default) or descending (DESC).',
-    sqlCode: `SELECT Name, Salary FROM Employees ORDER BY Salary DESC;`,
+    sqlCode: 'SELECT Name, Salary FROM Employees ORDER BY Salary DESC;',
     difficulty: 'Beginner',
     tags: ['sql', 'order by', 'sorting'],
     tips: 'ORDER BY is always the last clause executed in a query.',
@@ -134,7 +131,7 @@ GROUP BY Department;`,
     category: 'SQL',
     question: 'What is DISTINCT?',
     answer: 'DISTINCT removes duplicate rows from the result set, returning only unique values.',
-    sqlCode: `SELECT DISTINCT Department FROM Employees;`,
+    sqlCode: 'SELECT DISTINCT Department FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'distinct', 'duplicates'],
     tips: 'DISTINCT applies to the entire row, not just one column.',
@@ -193,10 +190,6 @@ GROUP BY Department;`,
     takeaways: 'Foreign Key links tables and enforces referential integrity.',
     relatedIds: [9, 11],
   },
-
-  // ============================================
-  // SECTION 2: SQL JOINS (Q11–Q20)
-  // ============================================
   {
     id: 11,
     section: 2,
@@ -337,7 +330,7 @@ JOIN Employees e2 ON e1.ManagerID = e2.EmpID;`,
     category: 'SQL',
     question: 'Explain NATURAL JOIN.',
     answer: 'Automatically joins two tables based on all columns with the same name and compatible data type, without specifying an ON condition. (Not supported in SQL Server; supported in MySQL/Oracle/PostgreSQL.)',
-    sqlCode: `SELECT * FROM Employees NATURAL JOIN Departments;`,
+    sqlCode: 'SELECT * FROM Employees NATURAL JOIN Departments;',
     difficulty: 'Intermediate',
     tags: ['sql', 'joins', 'natural join'],
     tips: 'Avoid NATURAL JOIN in production — it\'s fragile if column names change.',
@@ -357,15 +350,11 @@ FROM Orders o
 INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     difficulty: 'Beginner',
     tags: ['sql', 'joins', 'real-world', 'example'],
-    example: 'E-commerce invoice generation — linking orders to customer information.',
     tips: 'Always have a real-world example ready for JOIN questions.',
     takeaways: 'JOINs connect related business entities across tables.',
+    example: 'E-commerce invoice generation — linking orders to customer information.',
     relatedIds: [11, 12],
   },
-
-  // ============================================
-  // SECTION 3: AGGREGATE FUNCTIONS (Q21–Q30)
-  // ============================================
   {
     id: 21,
     section: 3,
@@ -373,7 +362,7 @@ INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     category: 'SQL',
     question: 'Explain COUNT().',
     answer: 'Returns the number of rows matching a condition.',
-    sqlCode: `SELECT COUNT(*) FROM Employees;`,
+    sqlCode: 'SELECT COUNT(*) FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'aggregate', 'count'],
     tips: 'COUNT(*) counts all rows including NULLs. COUNT(column) counts non-NULL values.',
@@ -388,7 +377,7 @@ INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     category: 'SQL',
     question: 'Explain SUM().',
     answer: 'Returns the total sum of a numeric column.',
-    sqlCode: `SELECT SUM(Salary) FROM Employees;`,
+    sqlCode: 'SELECT SUM(Salary) FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'aggregate', 'sum'],
     tips: 'SUM ignores NULL values. Use COALESCE to treat NULLs as 0 if needed.',
@@ -403,7 +392,7 @@ INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     category: 'SQL',
     question: 'Explain AVG().',
     answer: 'Returns the average value of a numeric column.',
-    sqlCode: `SELECT AVG(Salary) FROM Employees;`,
+    sqlCode: 'SELECT AVG(Salary) FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'aggregate', 'avg', 'average'],
     tips: 'AVG ignores NULLs — the denominator is count of non-NULL values.',
@@ -418,7 +407,7 @@ INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     category: 'SQL',
     question: 'Explain MIN().',
     answer: 'Returns the smallest value in a column.',
-    sqlCode: `SELECT MIN(Salary) FROM Employees;`,
+    sqlCode: 'SELECT MIN(Salary) FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'aggregate', 'min'],
     tips: 'MIN works on dates, strings (alphabetical), and numbers.',
@@ -432,7 +421,7 @@ INNER JOIN Customers c ON o.CustomerID = c.CustomerID;`,
     category: 'SQL',
     question: 'Explain MAX().',
     answer: 'Returns the largest value in a column.',
-    sqlCode: `SELECT MAX(Salary) FROM Employees;`,
+    sqlCode: 'SELECT MAX(Salary) FROM Employees;',
     difficulty: 'Beginner',
     tags: ['sql', 'aggregate', 'max'],
     tips: 'MAX works on dates (latest date), strings, and numbers.',
@@ -511,10 +500,6 @@ HAVING COUNT(*) > 1;`,
     takeaways: 'The big 5: COUNT, SUM, AVG, MIN, MAX.',
     relatedIds: [21, 22, 23, 24, 25],
   },
-
-  // ============================================
-  // SECTION 4: QUERY WRITING (Q31–Q40)
-  // ============================================
   {
     id: 31,
     section: 4,
@@ -690,17 +675,13 @@ GROUP BY CustomerID;`,
     takeaways: 'GROUP BY + COUNT = per-entity counts.',
     relatedIds: [75, 21],
   },
-
-  // ============================================
-  // SECTION 5: SCENARIO-BASED SQL (Q41–Q50)
-  // ============================================
   {
     id: 41,
     section: 5,
     sectionTitle: 'Scenario-Based SQL',
     category: 'SQL',
     question: 'How would you optimize a slow SQL query?',
-    answer: `Key techniques: add appropriate indexes on WHERE/JOIN/ORDER BY columns; avoid SELECT * (select only needed columns); avoid functions on indexed columns in WHERE clause; use EXISTS instead of IN for large subqueries; check the execution plan; avoid unnecessary JOINs/subqueries; use appropriate data types; partition very large tables; update statistics/rebuild indexes periodically.`,
+    answer: 'Key techniques: add appropriate indexes on WHERE/JOIN/ORDER BY columns; avoid SELECT * (select only needed columns); avoid functions on indexed columns in WHERE clause; use EXISTS instead of IN for large subqueries; check the execution plan; avoid unnecessary JOINs/subqueries; use appropriate data types; partition very large tables; update statistics/rebuild indexes periodically.',
     difficulty: 'Advanced',
     tags: ['sql', 'performance', 'optimization', 'indexes'],
     tips: 'Start with the execution plan — it shows where the bottleneck is.',
@@ -835,7 +816,7 @@ OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;
     sectionTitle: 'Scenario-Based SQL',
     category: 'SQL',
     question: 'How would you troubleshoot incorrect query results?',
-    answer: `Steps: re-check JOIN conditions for unintended row multiplication; verify WHERE/HAVING filter logic; check for NULL handling issues; test subqueries independently; check for duplicate rows in source tables; validate GROUP BY column grain matches expected result; compare against a small known sample manually.`,
+    answer: 'Steps: re-check JOIN conditions for unintended row multiplication; verify WHERE/HAVING filter logic; check for NULL handling issues; test subqueries independently; check for duplicate rows in source tables; validate GROUP BY column grain matches expected result; compare against a small known sample manually.',
     difficulty: 'Advanced',
     tags: ['sql', 'debugging', 'troubleshooting'],
     tips: 'Break the query into parts and test each independently.',
@@ -848,17 +829,13 @@ OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;
     sectionTitle: 'Scenario-Based SQL',
     category: 'SQL',
     question: 'How do you validate SQL query output before sharing a report?',
-    answer: `Cross-check row counts and totals against the source system/raw data; spot-check a few records manually; verify aggregates (sums, counts) tie out; check for duplicates or missing data; confirm filters and date ranges are correct; peer review with a colleague when possible.`,
+    answer: 'Cross-check row counts and totals against the source system/raw data; spot-check a few records manually; verify aggregates (sums, counts) tie out; check for duplicates or missing data; confirm filters and date ranges are correct; peer review with a colleague when possible.',
     difficulty: 'Advanced',
     tags: ['sql', 'validation', 'reporting', 'data quality'],
     tips: 'Always run a sanity check before delivering results.',
     takeaways: 'Validation = counts + totals + spot-checks + peer review.',
     relatedIds: [49, 80],
   },
-
-  // ============================================
-  // SECTION 6: ADVANCED SQL (Q51–Q60)
-  // ============================================
   {
     id: 51,
     section: 6,
@@ -1013,10 +990,6 @@ FROM Employees;`,
     takeaways: 'RANK = gaps. DENSE_RANK = no gaps.',
     relatedIds: [56, 57, 59],
   },
-
-  // ============================================
-  // SECTION 7: DATABASE CONCEPTS (Q61–Q70)
-  // ============================================
   {
     id: 61,
     section: 7,
@@ -1067,7 +1040,7 @@ BCNF: Stricter version of 3NF handling certain anomalies.
     category: 'SQL',
     question: 'What is an Index?',
     answer: 'A database object that improves the speed of data retrieval on a table, at the cost of extra storage and slower writes, similar to an index in a book.',
-    sqlCode: `CREATE INDEX idx_emp_dept ON Employees(DeptID);`,
+    sqlCode: 'CREATE INDEX idx_emp_dept ON Employees(DeptID);',
     difficulty: 'Intermediate',
     tags: ['sql', 'index', 'performance', 'optimization'],
     tips: 'Index columns used in WHERE, JOIN, and ORDER BY. But don\'t over-index.',
@@ -1175,10 +1148,6 @@ Durability: Once committed, changes are permanently saved even after a crash.`,
     takeaways: 'ACID guarantees reliable database transactions.',
     relatedIds: [69],
   },
-
-  // ============================================
-  // SECTION 8: DATA ANALYST SQL (Q71–Q80)
-  // ============================================
   {
     id: 71,
     section: 8,
@@ -1353,10 +1322,6 @@ FROM Orders;`,
     takeaways: 'Multiple aggregates in one SELECT = KPI summary.',
     relatedIds: [79, 50],
   },
-
-  // ============================================
-  // SECTION 9: INTERVIEW CLOSING (Q81–Q90)
-  // ============================================
   {
     id: 81,
     section: 9,
@@ -1487,17 +1452,13 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     takeaways: 'SQL is foundational — it makes all other data tools easier.',
     relatedIds: [81],
   },
-
-  // ============================================
-  // SECTION 10: EXCEL (Q91–Q105)
-  // ============================================
   {
     id: 91,
     section: 10,
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is the difference between VLOOKUP and INDEX-MATCH?',
-    answer: `VLOOKUP searches a value in the leftmost column of a range and returns a value from a column to its right; it can only look left-to-right and breaks if columns are inserted/moved. INDEX-MATCH combines INDEX (returns a value at a row/column position) with MATCH (finds the position of a value) and can look in any direction, is more flexible, and is less prone to breaking when columns shift.`,
+    answer: 'VLOOKUP searches a value in the leftmost column of a range and returns a value from a column to its right; it can only look left-to-right and breaks if columns are inserted/moved. INDEX-MATCH combines INDEX (returns a value at a row/column position) with MATCH (finds the position of a value) and can look in any direction, is more flexible, and is less prone to breaking when columns shift.',
     difficulty: 'Intermediate',
     tags: ['excel', 'vlookup', 'index-match', 'lookup'],
     tips: 'INDEX-MATCH is more robust — always prefer it over VLOOKUP.',
@@ -1511,7 +1472,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is the difference between VLOOKUP and XLOOKUP?',
-    answer: `XLOOKUP (newer function) can search in any direction (left or right), has a built-in "not found" argument, defaults to exact match (safer than VLOOKUP's default approximate match), and can return multiple columns/arrays at once.`,
+    answer: 'XLOOKUP (newer function) can search in any direction (left or right), has a built-in "not found" argument, defaults to exact match (safer than VLOOKUP\'s default approximate match), and can return multiple columns/arrays at once.',
     difficulty: 'Intermediate',
     tags: ['excel', 'vlookup', 'xlookup', 'lookup'],
     tips: 'XLOOKUP is the modern replacement for VLOOKUP — mention it to show you\'re current.',
@@ -1537,7 +1498,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is the difference between COUNT, COUNTA, COUNTIF, and COUNTIFS?',
-    answer: `COUNT counts numeric cells only. COUNTA counts all non-empty cells (numbers, text, dates). COUNTIF counts cells matching one condition. COUNTIFS counts cells matching multiple conditions across one or more ranges.`,
+    answer: 'COUNT counts numeric cells only. COUNTA counts all non-empty cells (numbers, text, dates). COUNTIF counts cells matching one condition. COUNTIFS counts cells matching multiple conditions across one or more ranges.',
     difficulty: 'Beginner',
     tags: ['excel', 'count', 'counta', 'countif', 'countifs'],
     tips: 'Remember: COUNT = numbers, COUNTA = anything non-empty, COUNTIF(S) = conditional.',
@@ -1563,7 +1524,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What are absolute vs relative cell references?',
-    answer: `A relative reference (A1) changes when copied to another cell. An absolute reference ($A$1) stays fixed. A mixed reference ($A1 or A$1) locks only the column or only the row.`,
+    answer: 'A relative reference (A1) changes when copied to another cell. An absolute reference ($A$1) stays fixed. A mixed reference ($A1 or A$1) locks only the column or only the row.',
     difficulty: 'Beginner',
     tags: ['excel', 'cell reference', 'absolute', 'relative'],
     tips: 'Press F4 to toggle between reference types while editing a formula.',
@@ -1600,7 +1561,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is the difference between IFERROR and IF?',
-    answer: `IF evaluates a logical condition and returns one value if TRUE and another if FALSE. IFERROR specifically checks whether a formula produces an error (like #N/A, #DIV/0!) and returns an alternate value if so, otherwise returns the formula's normal result.`,
+    answer: 'IF evaluates a logical condition and returns one value if TRUE and another if FALSE. IFERROR specifically checks whether a formula produces an error (like #N/A, #DIV/0!) and returns an alternate value if so, otherwise returns the formula\'s normal result.',
     difficulty: 'Beginner',
     tags: ['excel', 'if', 'iferror', 'error handling'],
     takeaways: 'IF = condition check. IFERROR = error handling wrapper.',
@@ -1624,7 +1585,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What are Excel array formulas / dynamic arrays (e.g. FILTER, UNIQUE)?',
-    answer: `Array formulas operate on multiple values at once. Modern dynamic array functions like FILTER() extract rows matching a condition, UNIQUE() returns distinct values, and SORT() sorts an array — all "spilling" results across multiple cells automatically.`,
+    answer: 'Array formulas operate on multiple values at once. Modern dynamic array functions like FILTER() extract rows matching a condition, UNIQUE() returns distinct values, and SORT() sorts an array — all "spilling" results across multiple cells automatically.',
     difficulty: 'Intermediate',
     tags: ['excel', 'array formulas', 'dynamic arrays', 'filter', 'unique'],
     tips: 'Dynamic arrays (FILTER, UNIQUE, SORT) are game-changers in modern Excel.',
@@ -1637,7 +1598,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is Power Query used for?',
-    answer: `Power Query is Excel's data connection and transformation tool — used to import, clean, reshape (pivot/unpivot, merge, append), and automate repeatable data prep steps before loading data into a worksheet or the data model.`,
+    answer: 'Power Query is Excel\'s data connection and transformation tool — used to import, clean, reshape (pivot/unpivot, merge, append), and automate repeatable data prep steps before loading data into a worksheet or the data model.',
     difficulty: 'Intermediate',
     tags: ['excel', 'power query', 'etl', 'data transformation'],
     tips: 'Power Query is essentially ETL built into Excel.',
@@ -1650,7 +1611,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'How do you handle blank/missing values in Excel?',
-    answer: `Options include: use ISBLANK() to detect blanks; use IFERROR/IF to substitute defaults; use Go To Special > Blanks to select and fill them; or use Power Query to fill down/replace nulls, depending on whether the blank should be treated as zero, excluded, or imputed.`,
+    answer: 'Options include: use ISBLANK() to detect blanks; use IFERROR/IF to substitute defaults; use Go To Special > Blanks to select and fill them; or use Power Query to fill down/replace nulls, depending on whether the blank should be treated as zero, excluded, or imputed.',
     difficulty: 'Intermediate',
     tags: ['excel', 'missing values', 'blanks', 'data cleaning'],
     takeaways: 'Multiple strategies: detect, fill, substitute, or Power Query.',
@@ -1674,23 +1635,19 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Excel for Data Analysts',
     category: 'Excel',
     question: 'What is the use of the CONCATENATE / TEXTJOIN function?',
-    answer: `CONCATENATE (or the & operator, or newer CONCAT) joins multiple text strings into one. TEXTJOIN does the same but lets you specify a delimiter and optionally ignore blank cells, useful for combining a range of cells efficiently.`,
+    answer: 'CONCATENATE (or the & operator, or newer CONCAT) joins multiple text strings into one. TEXTJOIN does the same but lets you specify a delimiter and optionally ignore blank cells, useful for combining a range of cells efficiently.',
     difficulty: 'Beginner',
     tags: ['excel', 'concatenate', 'textjoin', 'text functions'],
     takeaways: 'CONCATENATE = join text. TEXTJOIN = join with delimiter + ignore blanks.',
     relatedIds: [94],
   },
-
-  // ============================================
-  // SECTION 11: TABLEAU (Q106–Q120)
-  // ============================================
   {
     id: 106,
     section: 11,
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is the difference between a Dimension and a Measure in Tableau?',
-    answer: `Dimensions are typically qualitative/categorical fields (Region, Product, Name) used to slice and group data. Measures are typically quantitative/numeric fields (Sales, Profit) that can be aggregated (SUM, AVG, COUNT).`,
+    answer: 'Dimensions are typically qualitative/categorical fields (Region, Product, Name) used to slice and group data. Measures are typically quantitative/numeric fields (Sales, Profit) that can be aggregated (SUM, AVG, COUNT).',
     difficulty: 'Beginner',
     tags: ['tableau', 'dimension', 'measure', 'basics'],
     tips: 'Dimensions = categories (blue). Measures = numbers (green).',
@@ -1703,7 +1660,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is the difference between a Blend and a Join in Tableau?',
-    answer: `A Join combines rows from two tables at the data source level (row-level, before aggregation) based on a common field. A Blend combines data from two separate data sources at the aggregate level (after each source is queried independently), used when data can't be joined directly (e.g. different databases).`,
+    answer: 'A Join combines rows from two tables at the data source level (row-level, before aggregation) based on a common field. A Blend combines data from two separate data sources at the aggregate level (after each source is queried independently), used when data can\'t be joined directly (e.g. different databases).',
     difficulty: 'Intermediate',
     tags: ['tableau', 'blend', 'join', 'data sources'],
     tips: 'Join = same data source. Blend = different data sources.',
@@ -1716,7 +1673,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What are Tableau Extracts vs Live connections?',
-    answer: `A Live connection queries the underlying database directly in real time. An Extract is a compressed snapshot (.hyper file) of the data pulled into Tableau's fast in-memory engine — faster performance, works offline, but data is only as current as the last refresh.`,
+    answer: 'A Live connection queries the underlying database directly in real time. An Extract is a compressed snapshot (.hyper file) of the data pulled into Tableau\'s fast in-memory engine — faster performance, works offline, but data is only as current as the last refresh.',
     difficulty: 'Intermediate',
     tags: ['tableau', 'extract', 'live', 'connection'],
     tips: 'Use Extracts for performance; Live for real-time needs.',
@@ -1741,7 +1698,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What are Table Calculations in Tableau?',
-    answer: `Calculations applied to the values already in a visualization (post-aggregation) such as running totals, percent of total, difference, or rank — computed based on the structure of the table/view rather than the raw data source.`,
+    answer: 'Calculations applied to the values already in a visualization (post-aggregation) such as running totals, percent of total, difference, or rank — computed based on the structure of the table/view rather than the raw data source.',
     difficulty: 'Advanced',
     tags: ['tableau', 'table calculations', 'post-aggregation'],
     tips: 'Table calcs run AFTER the query — they work on the viz, not the data source.',
@@ -1754,7 +1711,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is the difference between Discrete and Continuous fields in Tableau?',
-    answer: `Discrete (blue) fields create separate, distinct headers/categories (e.g. individual dates as labels). Continuous (green) fields create a continuous axis/range (e.g. a trend line over time).`,
+    answer: 'Discrete (blue) fields create separate, distinct headers/categories (e.g. individual dates as labels). Continuous (green) fields create a continuous axis/range (e.g. a trend line over time).',
     difficulty: 'Intermediate',
     tags: ['tableau', 'discrete', 'continuous'],
     tips: 'Blue = discrete = individual labels. Green = continuous = axis range.',
@@ -1767,7 +1724,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What are Filters vs Parameters in Tableau?',
-    answer: `Filters restrict which data rows are included in a view and can be dimension-, measure-, or context-based. Parameters are dynamic, user-controlled input values (numbers, strings, dates) that can drive calculated fields, titles, or filter logic across a dashboard.`,
+    answer: 'Filters restrict which data rows are included in a view and can be dimension-, measure-, or context-based. Parameters are dynamic, user-controlled input values (numbers, strings, dates) that can drive calculated fields, titles, or filter logic across a dashboard.',
     difficulty: 'Intermediate',
     tags: ['tableau', 'filters', 'parameters'],
     tips: 'Filters = restrict data. Parameters = user inputs that drive logic.',
@@ -1792,7 +1749,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is the difference between a bar chart and a histogram?',
-    answer: `A bar chart compares discrete categories against a measure. A histogram groups continuous numeric data into bins/ranges to show the distribution/frequency of values.`,
+    answer: 'A bar chart compares discrete categories against a measure. A histogram groups continuous numeric data into bins/ranges to show the distribution/frequency of values.',
     difficulty: 'Beginner',
     tags: ['tableau', 'bar chart', 'histogram', 'visualization'],
     takeaways: 'Bar chart = categories. Histogram = distribution of continuous data.',
@@ -1804,7 +1761,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'When would you use a heat map vs a treemap?',
-    answer: `A heat map is useful for showing intensity/values across two categorical dimensions using color. A treemap is useful for showing hierarchical, part-to-whole relationships using nested, sized rectangles (size = one measure, color = another).`,
+    answer: 'A heat map is useful for showing intensity/values across two categorical dimensions using color. A treemap is useful for showing hierarchical, part-to-whole relationships using nested, sized rectangles (size = one measure, color = another).',
     difficulty: 'Intermediate',
     tags: ['tableau', 'heat map', 'treemap', 'visualization'],
     takeaways: 'Heat map = intensity grid. Treemap = hierarchical part-to-whole.',
@@ -1816,7 +1773,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is Level of Detail (LOD) expression in Tableau?',
-    answer: `LOD expressions (FIXED, INCLUDE, EXCLUDE) let you compute aggregations at a different level of granularity than the view itself, independent of the dimensions currently on the sheet — e.g. average sales per customer, shown alongside order-level detail.`,
+    answer: 'LOD expressions (FIXED, INCLUDE, EXCLUDE) let you compute aggregations at a different level of granularity than the view itself, independent of the dimensions currently on the sheet — e.g. average sales per customer, shown alongside order-level detail.',
     difficulty: 'Advanced',
     tags: ['tableau', 'lod', 'fixed', 'include', 'exclude'],
     tips: 'LOD is one of the most powerful and most-asked Tableau features.',
@@ -1829,7 +1786,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'How do you handle a dashboard with a large dataset that loads slowly?',
-    answer: `Use an Extract instead of a live connection, filter data at the source, hide unused fields, aggregate visible data where possible, reduce the number of marks/quick filters, and avoid overly complex calculated/table calculations on the fly.`,
+    answer: 'Use an Extract instead of a live connection, filter data at the source, hide unused fields, aggregate visible data where possible, reduce the number of marks/quick filters, and avoid overly complex calculated/table calculations on the fly.',
     difficulty: 'Advanced',
     tags: ['tableau', 'performance', 'optimization', 'dashboard'],
     tips: 'Extract first. Filter early. Simplify calcs.',
@@ -1854,7 +1811,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What chart would you use to compare parts of a whole?',
-    answer: `A pie chart (for few categories) or, more often preferred by analysts, a stacked bar chart or treemap, since bars are generally easier to read accurately than pie slices, especially with more than a few categories.`,
+    answer: 'A pie chart (for few categories) or, more often preferred by analysts, a stacked bar chart or treemap, since bars are generally easier to read accurately than pie slices, especially with more than a few categories.',
     difficulty: 'Beginner',
     tags: ['tableau', 'pie chart', 'stacked bar', 'part-to-whole'],
     takeaways: 'Stacked bar > pie chart for accuracy. Treemap for hierarchy.',
@@ -1866,16 +1823,12 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Tableau / Data Visualization',
     category: 'Tableau',
     question: 'What is the difference between Tableau Desktop and Tableau Public?',
-    answer: `Tableau Desktop is the full paid authoring tool that can connect to private/local data sources and save workbooks locally or to Tableau Server/Online. Tableau Public is a free version where workbooks and data are published publicly on Tableau's public cloud — no private data or local-only saving.`,
+    answer: 'Tableau Desktop is the full paid authoring tool that can connect to private/local data sources and save workbooks locally or to Tableau Server/Online. Tableau Public is a free version where workbooks and data are published publicly on Tableau\'s public cloud — no private data or local-only saving.',
     difficulty: 'Beginner',
     tags: ['tableau', 'desktop', 'public', 'licensing'],
     takeaways: 'Desktop = paid, private. Public = free, public.',
     relatedIds: [108],
   },
-
-  // ============================================
-  // SECTION 12: STATISTICS (Q121–Q135)
-  // ============================================
   {
     id: 121,
     section: 12,
@@ -1895,7 +1848,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is Standard Deviation and Variance?',
-    answer: `Variance measures the average squared distance of data points from the mean (spread of data). Standard Deviation is the square root of variance, expressed in the same units as the original data, making it easier to interpret.`,
+    answer: 'Variance measures the average squared distance of data points from the mean (spread of data). Standard Deviation is the square root of variance, expressed in the same units as the original data, making it easier to interpret.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'standard deviation', 'variance', 'spread'],
     tips: 'Std dev is more intuitive because it\'s in the same units as the data.',
@@ -1908,7 +1861,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is the difference between Population and Sample statistics?',
-    answer: `Population statistics describe an entire group of interest (every member). Sample statistics are calculated from a subset of the population and used to estimate/infer population parameters; sample variance/std dev typically divide by (n-1) instead of n (Bessel's correction) to reduce bias.`,
+    answer: 'Population statistics describe an entire group of interest (every member). Sample statistics are calculated from a subset of the population and used to estimate/infer population parameters; sample variance/std dev typically divide by (n-1) instead of n (Bessel\'s correction) to reduce bias.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'population', 'sample', 'inference'],
     takeaways: 'Population = all. Sample = subset. Sample uses n-1 (Bessel\'s correction).',
@@ -1920,7 +1873,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is Correlation vs Causation?',
-    answer: `Correlation means two variables move together (statistical association), measured e.g. by a correlation coefficient. Causation means one variable directly causes a change in another. Correlation does NOT imply causation — a third variable or coincidence could explain an observed relationship.`,
+    answer: 'Correlation means two variables move together (statistical association), measured e.g. by a correlation coefficient. Causation means one variable directly causes a change in another. Correlation does NOT imply causation — a third variable or coincidence could explain an observed relationship.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'correlation', 'causation'],
     tips: '"Correlation does not imply causation" — the most important stats principle.',
@@ -1933,7 +1886,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is a p-value?',
-    answer: `The probability of observing results at least as extreme as those measured, assuming the null hypothesis is true. A small p-value (commonly < 0.05) suggests the observed effect is unlikely to be due to chance alone, leading to rejection of the null hypothesis.`,
+    answer: 'The probability of observing results at least as extreme as those measured, assuming the null hypothesis is true. A small p-value (commonly < 0.05) suggests the observed effect is unlikely to be due to chance alone, leading to rejection of the null hypothesis.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'p-value', 'hypothesis testing', 'significance'],
     tips: 'p < 0.05 = "statistically significant" (by convention).',
@@ -1946,7 +1899,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is a Null Hypothesis vs Alternative Hypothesis?',
-    answer: `The Null Hypothesis (H0) assumes no effect or no difference exists. The Alternative Hypothesis (H1) proposes that an effect or difference does exist. Statistical tests assess whether there's enough evidence to reject H0 in favor of H1.`,
+    answer: 'The Null Hypothesis (H0) assumes no effect or no difference exists. The Alternative Hypothesis (H1) proposes that an effect or difference does exist. Statistical tests assess whether there\'s enough evidence to reject H0 in favor of H1.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'hypothesis', 'null', 'alternative'],
     takeaways: 'H0 = no effect. H1 = effect exists. Tests try to reject H0.',
@@ -1958,7 +1911,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is an Outlier, and how do you detect one?',
-    answer: `An outlier is a data point that differs significantly from other observations. Common detection methods: IQR method (values beyond Q1 - 1.5*IQR or Q3 + 1.5*IQR), Z-score (values beyond ~±3 standard deviations from the mean), or visual methods like box plots/scatter plots.`,
+    answer: 'An outlier is a data point that differs significantly from other observations. Common detection methods: IQR method (values beyond Q1 - 1.5*IQR or Q3 + 1.5*IQR), Z-score (values beyond ~±3 standard deviations from the mean), or visual methods like box plots/scatter plots.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'outlier', 'iqr', 'z-score', 'detection'],
     tips: 'Always investigate outliers before removing them — they might be real.',
@@ -1971,7 +1924,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is the difference between Type I and Type II error?',
-    answer: `Type I error (false positive) is rejecting a true null hypothesis. Type II error (false negative) is failing to reject a false null hypothesis.`,
+    answer: 'Type I error (false positive) is rejecting a true null hypothesis. Type II error (false negative) is failing to reject a false null hypothesis.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'type i', 'type ii', 'error', 'hypothesis'],
     tips: 'Type I = false alarm. Type II = missed detection.',
@@ -1984,7 +1937,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is a Normal Distribution?',
-    answer: `A symmetric, bell-shaped probability distribution where most values cluster around the mean, with mean, median, and mode all equal, and defined spread rules (~68% of data within 1 std dev, ~95% within 2).`,
+    answer: 'A symmetric, bell-shaped probability distribution where most values cluster around the mean, with mean, median, and mode all equal, and defined spread rules (~68% of data within 1 std dev, ~95% within 2).',
     difficulty: 'Intermediate',
     tags: ['statistics', 'normal distribution', 'bell curve', 'gaussian'],
     tips: 'The 68-95-99.7 rule is a great way to explain normal distribution.',
@@ -1997,7 +1950,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is the difference between Descriptive and Inferential statistics?',
-    answer: `Descriptive statistics summarize and describe features of a dataset (mean, median, charts). Inferential statistics use sample data to make predictions or generalizations about a larger population (hypothesis testing, confidence intervals, regression).`,
+    answer: 'Descriptive statistics summarize and describe features of a dataset (mean, median, charts). Inferential statistics use sample data to make predictions or generalizations about a larger population (hypothesis testing, confidence intervals, regression).',
     difficulty: 'Beginner',
     tags: ['statistics', 'descriptive', 'inferential'],
     takeaways: 'Descriptive = summarize data. Inferential = generalize to population.',
@@ -2009,7 +1962,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is a Confidence Interval?',
-    answer: `A range of values, derived from sample data, that is likely to contain the true population parameter with a stated level of confidence (e.g. 95%) — it quantifies the uncertainty around an estimate.`,
+    answer: 'A range of values, derived from sample data, that is likely to contain the true population parameter with a stated level of confidence (e.g. 95%) — it quantifies the uncertainty around an estimate.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'confidence interval', 'estimation'],
     tips: '95% CI means: if we repeated the experiment 100 times, ~95 intervals would contain the true value.',
@@ -2035,7 +1988,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is the difference between Skewness and Kurtosis?',
-    answer: `Skewness measures the asymmetry of a distribution (left/negative vs right/positive skew). Kurtosis measures the "tailedness" or peakedness of a distribution compared to a normal distribution.`,
+    answer: 'Skewness measures the asymmetry of a distribution (left/negative vs right/positive skew). Kurtosis measures the "tailedness" or peakedness of a distribution compared to a normal distribution.',
     difficulty: 'Advanced',
     tags: ['statistics', 'skewness', 'kurtosis', 'distribution'],
     takeaways: 'Skewness = asymmetry. Kurtosis = tail heaviness/peakedness.',
@@ -2047,7 +2000,7 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is A/B Testing?',
-    answer: `An experiment comparing two versions (A = control, B = variant) of something (e.g. a webpage, email) by randomly splitting an audience, measuring a target metric, and using statistical tests to determine if the difference is significant.`,
+    answer: 'An experiment comparing two versions (A = control, B = variant) of something (e.g. a webpage, email) by randomly splitting an audience, measuring a target metric, and using statistical tests to determine if the difference is significant.',
     difficulty: 'Intermediate',
     tags: ['statistics', 'ab testing', 'experiment', 'significance'],
     tips: 'Key elements: random split, control vs variant, statistical significance.',
@@ -2060,24 +2013,20 @@ SQL Server is a Microsoft product, commonly used in enterprise/Windows environme
     sectionTitle: 'Statistics & Probability',
     category: 'Statistics',
     question: 'What is the Central Limit Theorem?',
-    answer: `States that the sampling distribution of the mean of a large number of independent, identically distributed samples approaches a normal distribution, regardless of the shape of the original population's distribution — this underpins much of inferential statistics.`,
+    answer: 'States that the sampling distribution of the mean of a large number of independent, identically distributed samples approaches a normal distribution, regardless of the shape of the original population\'s distribution — this underpins much of inferential statistics.',
     difficulty: 'Advanced',
     tags: ['statistics', 'clt', 'central limit theorem', 'sampling'],
     tips: 'CLT is why we can use normal-based tests even when population isn\'t normal.',
     takeaways: 'CLT: sample means → normal distribution as n increases.',
     relatedIds: [129, 123],
   },
-
-  // ============================================
-  // SECTION 13: PYTHON (Q136–Q150)
-  // ============================================
   {
     id: 136,
     section: 13,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is the difference between a List and a Tuple in Python?',
-    answer: `A List is mutable (can be changed after creation) and uses square brackets []. A Tuple is immutable (cannot be changed) and uses parentheses (). Tuples are generally faster and used for fixed data.`,
+    answer: 'A List is mutable (can be changed after creation) and uses square brackets []. A Tuple is immutable (cannot be changed) and uses parentheses (). Tuples are generally faster and used for fixed data.',
     pythonCode: `my_list = [1, 2, 3]
 my_tuple = (1, 2, 3)`,
     difficulty: 'Beginner',
@@ -2092,8 +2041,8 @@ my_tuple = (1, 2, 3)`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is the difference between a List and a Dictionary?',
-    answer: `A List is an ordered collection of items accessed by index position. A Dictionary is an unordered (insertion-ordered in modern Python) collection of key-value pairs accessed by key.`,
-    pythonCode: `my_dict = {"name": "Bhagabata", "role": "Data Analyst"}`,
+    answer: 'A List is an ordered collection of items accessed by index position. A Dictionary is an unordered (insertion-ordered in modern Python) collection of key-value pairs accessed by key.',
+    pythonCode: 'my_dict = {"name": "Bhagabata", "role": "Data Analyst"}',
     difficulty: 'Beginner',
     tags: ['python', 'list', 'dictionary', 'data structures'],
     takeaways: 'List = ordered by index. Dict = key-value pairs.',
@@ -2135,8 +2084,8 @@ df.iloc[0, 2]          # by position`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'How do you handle missing values in Pandas?',
-    answer: `Use df.isnull() / df.isna() to detect missing values, df.dropna() to remove rows/columns with missing values, and df.fillna(value) to fill them with a default, mean, median, or forward/backward filled value.`,
-    pythonCode: `df.fillna(df.mean(numeric_only=True), inplace=True)`,
+    answer: 'Use df.isnull() / df.isna() to detect missing values, df.dropna() to remove rows/columns with missing values, and df.fillna(value) to fill them with a default, mean, median, or forward/backward filled value.',
+    pythonCode: 'df.fillna(df.mean(numeric_only=True), inplace=True)',
     difficulty: 'Intermediate',
     tags: ['python', 'pandas', 'missing values', 'null', 'fillna'],
     tips: 'Always check for missing values FIRST when exploring new data.',
@@ -2149,7 +2098,7 @@ df.iloc[0, 2]          # by position`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is the difference between merge(), join(), and concat() in Pandas?',
-    answer: `merge() combines DataFrames based on common columns/keys (like SQL JOIN). join() combines DataFrames based on their index. concat() stacks DataFrames either vertically (rows) or horizontally (columns) without matching on keys.`,
+    answer: 'merge() combines DataFrames based on common columns/keys (like SQL JOIN). join() combines DataFrames based on their index. concat() stacks DataFrames either vertically (rows) or horizontally (columns) without matching on keys.',
     pythonCode: `pd.merge(df1, df2, on="CustomerID", how="left")
 pd.concat([df1, df2], axis=0)`,
     difficulty: 'Intermediate',
@@ -2165,7 +2114,7 @@ pd.concat([df1, df2], axis=0)`,
     category: 'Python',
     question: 'What is groupby() used for in Pandas?',
     answer: 'groupby() splits data into groups based on column values, applies an aggregate function to each group, and combines results — the Pandas equivalent of SQL\'s GROUP BY.',
-    pythonCode: `df.groupby("Department")["Salary"].mean()`,
+    pythonCode: 'df.groupby("Department")["Salary"].mean()',
     difficulty: 'Intermediate',
     tags: ['python', 'pandas', 'groupby', 'aggregation'],
     tips: 'groupby follows split-apply-combine pattern.',
@@ -2178,7 +2127,7 @@ pd.concat([df1, df2], axis=0)`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is the difference between apply(), map(), and applymap()?',
-    answer: `map() works element-wise on a Series. apply() works on a Series or DataFrame (row-wise or column-wise, and can apply more complex functions). applymap() applies a function element-wise across an entire DataFrame.`,
+    answer: 'map() works element-wise on a Series. apply() works on a Series or DataFrame (row-wise or column-wise, and can apply more complex functions). applymap() applies a function element-wise across an entire DataFrame.',
     difficulty: 'Intermediate',
     tags: ['python', 'pandas', 'apply', 'map', 'applymap'],
     takeaways: 'map = Series elements. apply = rows/cols. applymap = all DataFrame cells.',
@@ -2205,7 +2154,7 @@ arr.mean()`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is the difference between a Series and a DataFrame in Pandas?',
-    answer: `A Series is a one-dimensional labeled array (like a single column). A DataFrame is a two-dimensional labeled data structure (like a table), essentially a collection of Series sharing the same index.`,
+    answer: 'A Series is a one-dimensional labeled array (like a single column). A DataFrame is a two-dimensional labeled data structure (like a table), essentially a collection of Series sharing the same index.',
     difficulty: 'Beginner',
     tags: ['python', 'pandas', 'series', 'dataframe'],
     takeaways: 'Series = 1D column. DataFrame = 2D table of Series.',
@@ -2232,8 +2181,8 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What is a Lambda function in Python, and where might you use it?',
-    answer: `An anonymous, single-expression function defined with the lambda keyword, often used inline with functions like apply(), filter(), or sorted() where defining a full named function would be unnecessary.`,
-    pythonCode: `df["Bonus"] = df["Salary"].apply(lambda x: x * 0.1)`,
+    answer: 'An anonymous, single-expression function defined with the lambda keyword, often used inline with functions like apply(), filter(), or sorted() where defining a full named function would be unnecessary.',
+    pythonCode: 'df["Bonus"] = df["Salary"].apply(lambda x: x * 0.1)',
     difficulty: 'Intermediate',
     tags: ['python', 'lambda', 'anonymous function'],
     takeaways: 'Lambda = quick inline function for simple operations.',
@@ -2245,7 +2194,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'What are common data visualization libraries in Python?',
-    answer: `Matplotlib (low-level, highly customizable plotting), Seaborn (built on Matplotlib, statistical visualizations with better defaults), and Plotly (interactive, web-based visualizations).`,
+    answer: 'Matplotlib (low-level, highly customizable plotting), Seaborn (built on Matplotlib, statistical visualizations with better defaults), and Plotly (interactive, web-based visualizations).',
     difficulty: 'Beginner',
     tags: ['python', 'matplotlib', 'seaborn', 'plotly', 'visualization'],
     takeaways: 'Matplotlib = base. Seaborn = statistical. Plotly = interactive.',
@@ -2269,7 +2218,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Python for Data Analysis',
     category: 'Python',
     question: 'How would you read a large CSV file efficiently in Pandas?',
-    answer: `Use chunksize to read the file in chunks instead of all at once, specify dtypes explicitly to reduce memory usage, use usecols to load only needed columns, and consider more efficient formats like Parquet for repeated use.`,
+    answer: 'Use chunksize to read the file in chunks instead of all at once, specify dtypes explicitly to reduce memory usage, use usecols to load only needed columns, and consider more efficient formats like Parquet for repeated use.',
     pythonCode: `for chunk in pd.read_csv("large_file.csv", chunksize=100000):
     process(chunk)`,
     difficulty: 'Advanced',
@@ -2278,17 +2227,13 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     takeaways: 'Chunksize + dtypes + usecols = efficient large file reading.',
     relatedIds: [138],
   },
-
-  // ============================================
-  // SECTION 14: DATA CLEANING & EDA (Q151–Q160)
-  // ============================================
   {
     id: 151,
     section: 14,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'What is Exploratory Data Analysis (EDA)?',
-    answer: `The process of investigating a dataset to summarize its main characteristics, often using visual methods, before formal modeling — includes checking data types, missing values, distributions, outliers, and relationships between variables.`,
+    answer: 'The process of investigating a dataset to summarize its main characteristics, often using visual methods, before formal modeling — includes checking data types, missing values, distributions, outliers, and relationships between variables.',
     difficulty: 'Beginner',
     tags: ['python', 'eda', 'data analysis', 'exploration'],
     tips: 'EDA is ALWAYS the first step before any analysis or modeling.',
@@ -2301,7 +2246,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'What steps do you take to clean a messy dataset?',
-    answer: `Typical steps: check and fix data types; handle missing values (impute or drop); remove duplicate records; standardize text/categorical values (casing, whitespace, typos); detect and handle outliers; validate referential integrity between related tables; and document any assumptions/transformations made.`,
+    answer: 'Typical steps: check and fix data types; handle missing values (impute or drop); remove duplicate records; standardize text/categorical values (casing, whitespace, typos); detect and handle outliers; validate referential integrity between related tables; and document any assumptions/transformations made.',
     difficulty: 'Intermediate',
     tags: ['python', 'data cleaning', 'data quality'],
     tips: 'Always document your cleaning steps for reproducibility.',
@@ -2314,7 +2259,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'How do you handle missing data — what are the strategies?',
-    answer: `Strategies include: deletion (drop rows/columns if missing data is minimal and random); mean/median/mode imputation for numeric/categorical data; forward/backward fill for time series; predictive imputation using other columns; or flagging missingness itself as a feature if it's informative.`,
+    answer: 'Strategies include: deletion (drop rows/columns if missing data is minimal and random); mean/median/mode imputation for numeric/categorical data; forward/backward fill for time series; predictive imputation using other columns; or flagging missingness itself as a feature if it\'s informative.',
     difficulty: 'Intermediate',
     tags: ['python', 'missing data', 'imputation', 'strategies'],
     takeaways: 'Delete, impute (mean/median/mode), fill forward/backward, or flag.',
@@ -2326,7 +2271,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'What is Data Wrangling / Data Munging?',
-    answer: `The overall process of transforming and mapping raw data into a clean, structured, analysis-ready format — includes cleaning, reshaping, merging, and enriching data.`,
+    answer: 'The overall process of transforming and mapping raw data into a clean, structured, analysis-ready format — includes cleaning, reshaping, merging, and enriching data.',
     difficulty: 'Beginner',
     tags: ['python', 'data wrangling', 'munging', 'transformation'],
     takeaways: 'Data Wrangling = clean + reshape + merge + enrich.',
@@ -2338,7 +2283,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'How do you detect and treat outliers?',
-    answer: `Detect using IQR, Z-score, or visualization (box plot, scatter plot). Treat by investigating the cause (data entry error vs genuine extreme value), then either correcting, capping/winsorizing, removing, or leaving as-is with a note, depending on business context.`,
+    answer: 'Detect using IQR, Z-score, or visualization (box plot, scatter plot). Treat by investigating the cause (data entry error vs genuine extreme value), then either correcting, capping/winsorizing, removing, or leaving as-is with a note, depending on business context.',
     difficulty: 'Intermediate',
     tags: ['python', 'outliers', 'iqr', 'z-score', 'data quality'],
     takeaways: 'Detect (IQR/Z-score/visual) → investigate → decide (correct/cap/remove/keep).',
@@ -2350,7 +2295,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'What is data type conversion / casting, and why does it matter?',
-    answer: `Converting a column from one data type to another (e.g. text to date, string to integer) — important because incorrect types can break calculations, sorting, and filtering, and often signal upstream data quality issues.`,
+    answer: 'Converting a column from one data type to another (e.g. text to date, string to integer) — important because incorrect types can break calculations, sorting, and filtering, and often signal upstream data quality issues.',
     difficulty: 'Beginner',
     tags: ['python', 'data types', 'casting', 'conversion'],
     takeaways: 'Wrong types → broken calcs. Always check and fix types early.',
@@ -2362,7 +2307,7 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     sectionTitle: 'Data Cleaning & EDA',
     category: 'Python',
     question: 'How do you identify inconsistent categorical data (e.g. "NY", "New York", "ny")?',
-    answer: `Use value_counts() / DISTINCT queries to inspect unique values, then standardize using mapping dictionaries, string functions (TRIM, UPPER/LOWER), or fuzzy matching for near-duplicates.`,
+    answer: 'Use value_counts() / DISTINCT queries to inspect unique values, then standardize using mapping dictionaries, string functions (TRIM, UPPER/LOWER), or fuzzy matching for near-duplicates.',
     difficulty: 'Intermediate',
     tags: ['python', 'data cleaning', 'categorical', 'standardization'],
     takeaways: 'Inspect unique values → standardize with mappings/string functions.',
@@ -2404,6 +2349,3385 @@ df_filtered2 = df[(df["Dept"] == "Sales") & (df["Salary"] > 50000)]`,
     takeaways: 'Structured = tables. Unstructured = text/images. Semi = JSON/XML.',
     relatedIds: [151],
   },
+  {
+    id: 161,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is Data Governance?',
+    answer: `A framework of policies, roles, standards, and processes that
+ensures data across an organization is accurate, consistent, secure,
+and used properly — covering data ownership, quality, privacy, and
+compliance.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 162,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What are the key dimensions of Data Quality?',
+    answer: `Accuracy, Completeness, Consistency, Timeliness, Uniqueness, and
+Validity — data quality frameworks (including tools like Collibra)
+typically assess data against these dimensions.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 163,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is a Data Catalog?',
+    answer: `A centralized inventory of an organization's data assets,
+including metadata (definitions, ownership, lineage, sensitivity),
+making it easier for users to find, understand, and trust data. Tools
+like Collibra provide data cataloging capabilities.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 164,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is Data Lineage?',
+    answer: `The tracking of data's origin, movement, and transformations as
+it flows through systems — from source to destination — helping teams
+understand where data comes from and how it has changed.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 165,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is Master Data Management (MDM)?',
+    answer: `A discipline/process for creating a single, consistent, and
+authoritative source of core business data (e.g. customer, product)
+across multiple systems, reducing duplication and inconsistency.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 166,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is a Data Steward, and what do they do?',
+    answer: `A person responsible for managing and overseeing an
+organization's data assets — ensuring data quality, defining business
+terms/metadata, resolving data issues, and enforcing governance
+policies for a specific domain.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 167,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: `What is the difference between Data Governance and Data
+Management?`,
+    answer: `Data Governance defines the policies, standards, and
+accountability (the "what" and "who"). Data Management is the
+operational execution of those policies — the actual processes and
+technology used to store, move, and maintain data (the "how").`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 168,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is metadata, and why is it important?',
+    answer: `Metadata is "data about data" — descriptive information like
+column definitions, data types, source system, and ownership. It's
+important because it helps users understand, trust, and correctly use
+data without needing to inspect the raw data itself.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 169,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: 'What is a business glossary?',
+    answer: `A centralized, standardized list of business terms and their
+definitions (e.g. what exactly counts as an "Active Customer"), used to
+ensure everyone across an organization interprets data terms
+consistently.`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 170,
+    section: 15,
+    sectionTitle: 'Data Governance & Data Quality',
+    category: 'Data Governance',
+    question: `How would you handle a data quality issue you discover in a
+report?`,
+    answer: `Sample answer: "I'd first verify the issue isn't a one-off query
+error, trace it back to the source data to find the root cause, flag it
+to the relevant data owner/steward, document the impact on downstream
+reports, and — depending on urgency — either correct it directly or
+clearly caveat the affected numbers until it's resolved."`,
+    difficulty: 'Intermediate',
+    tags: ['data governance', 'section-15'],
+  },
+  {
+    id: 171,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What is Power BI, and how does it compare to Tableau?',
+    answer: `Power BI is Microsoft's business intelligence tool for connecting
+to data sources, transforming data (via Power Query), and building
+interactive reports/dashboards. Compared to Tableau, Power BI has
+tighter integration with Microsoft products (Excel, Azure, Teams) and a
+typically lower cost, while Tableau is often considered stronger for
+complex, highly customized visualizations.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 172,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What is DAX in Power BI?',
+    answer: `DAX (Data Analysis Expressions) is the formula language used in
+Power BI (and Excel Power Pivot) to create calculated columns, measures,
+and custom aggregations.
+Example measure:
+Total Sales = SUM(Sales[Amount])`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 173,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: `What is the difference between a Calculated Column and a Measure
+in Power BI?`,
+    answer: `A Calculated Column is computed row-by-row and stored in the
+table (uses storage). A Measure is calculated dynamically at query time
+based on the current filter context (e.g. what's on a visual) and is
+not stored — generally more efficient for aggregations.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 174,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What is Power Query in Power BI?',
+    answer: `The data connection and transformation engine (same underlying
+technology as Excel's Power Query) used to import, clean, reshape, and
+combine data before it's loaded into the Power BI data model.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 175,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What is a Star Schema, and why is it used in BI tools?',
+    answer: `A data modeling approach with a central Fact table (containing
+measures/transactions) connected to surrounding Dimension tables
+(containing descriptive attributes like Date, Product, Customer). It's
+used because it simplifies queries, improves performance, and works
+naturally with BI tools' filtering and aggregation.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 176,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: `What is the difference between Import mode and DirectQuery mode
+in Power BI?`,
+    answer: `Import mode loads a copy of the data into Power BI's in-memory
+model (fast, but needs refreshing). DirectQuery queries the source
+database live for each interaction (always current, but can be slower
+and depends on source database performance).`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 177,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What are Slicers in Power BI?',
+    answer: `Visual filter controls placed on a report that let users interact
+with and filter the data shown across visuals on a page, similar to
+Quick Filters in Tableau.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 178,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'What is Row-Level Security (RLS) in Power BI?',
+    answer: `A feature that restricts data access for specific users based on
+roles/filters, so different users see only the rows of data relevant
+to them (e.g. a regional manager sees only their region's data) when
+viewing the same report.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 179,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: `What is the difference between Power BI Desktop and Power BI
+Service?`,
+    answer: `Power BI Desktop is the free Windows application used to build
+and design reports. Power BI Service is the cloud-based platform used
+to publish, share, schedule refreshes, and collaborate on those reports
+with others.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 180,
+    section: 16,
+    sectionTitle: 'Power BI',
+    category: 'Power BI',
+    question: 'How do you optimize a slow Power BI report?',
+    answer: `Reduce the data model size (import only needed columns/rows), use
+Import mode where possible, minimize the use of calculated columns in
+favor of measures, simplify complex DAX, use a proper star schema, and
+limit the number of visuals per page.`,
+    difficulty: 'Intermediate',
+    tags: ['power bi', 'section-16'],
+  },
+  {
+    id: 181,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `Tell me about a time you found an insight in data that changed a
+business decision.`,
+    answer: `Sample structure (STAR method): Situation — describe the business
+context; Task — what you were asked to analyze; Action — the analysis
+you performed (tools, method); Result — the insight found and its
+business impact. Tailor this to a real example from your Data Gyan
+internship or D365 F&O work.`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 182,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `How do you prioritize multiple reporting requests with tight
+deadlines?`,
+    answer: `Sample answer: "I clarify the business impact and urgency of each
+request with stakeholders, prioritize based on decisions that depend on
+the data, communicate realistic timelines early, and look for ways to
+reuse existing queries/dashboards to save time."`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 183,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `How would you explain a complex data finding to a non-technical
+stakeholder?`,
+    answer: `Sample answer: "I'd focus on the business impact rather than the
+technical method, use simple visuals instead of raw numbers or code,
+avoid jargon, and tie the finding back to a decision or action the
+stakeholder can take."`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 184,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `What would you do if your analysis contradicted a stakeholder's
+expectations?`,
+    answer: `Sample answer: "I'd double-check my data and methodology for
+errors first, then present the findings transparently with supporting
+evidence, remain open to their business context/domain knowledge that I
+might be missing, and let the data guide the conversation rather than
+assuming either side is automatically right."`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 185,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: 'How do you ensure accuracy in your reports?',
+    answer: `Sample answer: "I validate totals against source systems, spot-
+check individual records, use consistent, documented definitions for
+metrics, and where possible have a peer review key reports before they
+go out."`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 186,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `Describe a situation where you had to work with incomplete or
+messy data.`,
+    answer: `Sample structure: describe the specific data quality issues found
+(missing values, inconsistent formats, duplicates), the cleaning
+approach taken, and how you communicated any resulting limitations or
+assumptions to stakeholders.`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 187,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `How do you stay updated with new tools and techniques in data
+analytics?`,
+    answer: `Sample answer: "I follow structured learning paths (e.g. SQL,
+Tableau, Python), work on hands-on practice datasets, and apply new
+skills directly to real projects at work, like combining my D365 F&O/
+ERP background with data analysis and governance tools like Collibra."`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 188,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `What metrics would you track to measure the success of an
+e-commerce website?`,
+    answer: `Examples: Conversion Rate, Average Order Value, Customer
+Acquisition Cost, Customer Lifetime Value, Cart Abandonment Rate,
+Repeat Purchase Rate, Traffic by channel, and Revenue by product/
+region.`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 189,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: `A dashboard shows a sudden drop in sales overnight — how do you
+investigate?`,
+    answer: `Sample approach: first rule out a data/reporting issue (ETL
+failure, filter misconfiguration, date range issue); check if the drop
+is isolated to one region/product/channel or across the board; compare
+against historical patterns (seasonality, day-of-week effects); check
+for external factors (promotions ended, website outage, stock-outs);
+then communicate findings once confirmed.`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 190,
+    section: 17,
+    sectionTitle: 'Business / Case / Behavioral Questions',
+    category: 'Behavioral',
+    question: 'How would you design a KPI dashboard for a sales team?',
+    answer: `Sample approach: clarify the audience and their key decisions
+first; select a small set of meaningful KPIs (e.g. Revenue, Growth %,
+Conversion Rate, Top Products/Regions) rather than everything possible;
+design for at-a-glance readability with drill-down options; ensure data
+refreshes reliably; and validate numbers against source reports before
+rollout.`,
+    difficulty: 'Intermediate',
+    tags: ['behavioral', 'section-17'],
+  },
+  {
+    id: 191,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: `What is the difference between a Data Analyst, Data Scientist, and
+Data Engineer?`,
+    answer: `A Data Analyst focuses on interpreting existing data to answer
+business questions and build reports/dashboards. A Data Scientist
+builds predictive models and applies advanced statistics/machine
+learning. A Data Engineer builds and maintains the pipelines and
+infrastructure that collect, store, and move data for the other two
+roles to use.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 192,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: 'What is ETL vs ELT?',
+    answer: `ETL (Extract, Transform, Load) transforms data before loading it
+into the target system. ELT (Extract, Load, Transform) loads raw data
+into the target system first (often a cloud data warehouse) and
+transforms it afterward, taking advantage of the target system's
+processing power.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 193,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: 'What is a Data Warehouse vs a Database?',
+    answer: `A Database (OLTP) is optimized for fast, transactional read/write
+operations on current, detailed data (e.g. order processing). A Data
+Warehouse (OLAP) is optimized for analytical queries across large
+volumes of historical, aggregated data from multiple sources, often
+structured as a star/snowflake schema.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 194,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: 'What is a KPI (Key Performance Indicator)?',
+    answer: `A measurable value that shows how effectively an organization or
+team is achieving a key business objective (e.g. Monthly Revenue
+Growth, Customer Churn Rate) — used to track progress and guide
+decisions.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 195,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: 'What is the difference between OLAP and OLTP?',
+    answer: `OLTP (Online Transaction Processing) systems handle day-to-day
+transactional operations with frequent, small read/write actions. OLAP
+(Online Analytical Processing) systems handle complex analytical
+queries over large historical datasets, typically used for reporting
+and business intelligence.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 196,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: 'What is Data Modeling?',
+    answer: `The process of designing how data is structured, related, and
+stored — defining tables, keys, and relationships (e.g. star schema) —
+to support efficient storage, querying, and reporting.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 197,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: `What is the difference between a Fact table and a Dimension
+table?`,
+    answer: `A Fact table stores quantitative, measurable data (transactions,
+sales amounts) and foreign keys linking to dimensions. A Dimension
+table stores descriptive, categorical attributes (product name,
+customer details, date attributes) that give context to the facts.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 198,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: `What is Data Visualization best practice you follow when building
+a report?`,
+    answer: `Practices include: choosing the right chart type for the data
+(avoid pie charts for many categories); keeping visuals uncluttered;
+using consistent color coding; labeling axes/units clearly; ordering
+categories meaningfully; and highlighting the key takeaway rather than
+showing everything at once.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 199,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: `What is the difference between Structured Query Language (SQL)
+and NoSQL databases?`,
+    answer: `SQL (relational) databases store data in structured tables with
+fixed schemas and relationships, using SQL for querying (e.g. MySQL,
+SQL Server). NoSQL databases store data in flexible formats (document,
+key-value, column, graph) without a fixed schema, often used for
+unstructured or rapidly changing data (e.g. MongoDB, Cassandra).`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 200,
+    section: 18,
+    sectionTitle: 'General Data Analyst Concepts',
+    category: 'General',
+    question: `Walk me through how you would approach a new, unfamiliar dataset
+given to you for analysis.`,
+    answer: `Sample approach: 1) Understand the business question/goal first;
+2) Profile the data — check size, columns, data types, missing values;
+3) Perform EDA — distributions, relationships, outliers; 4) Clean and
+transform the data as needed; 5) Analyze and build visuals/queries
+targeted at the original question; 6) Validate findings against source
+data or known benchmarks; 7) Summarize insights clearly for the
+intended audience.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-18'],
+  },
+  {
+    id: 201,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the INDEX function and how does it differ from OFFSET?',
+    answer: `INDEX returns the value at a given row/column position within a
+fixed range and is non-volatile (doesn't recalculate on every sheet
+change). OFFSET returns a reference shifted from a starting point by a
+given number of rows/columns and is volatile — it recalculates
+constantly, which can slow down large workbooks.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 202,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is an Array constant in Excel?',
+    answer: `A fixed set of values entered directly into a formula using curly
+braces, e.g. {1,2,3;4,5,6}, used to supply multiple values to a
+function without referencing cells.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 203,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the purpose of the OFFSET function, and why is it
+considered "volatile"?`,
+    answer: `OFFSET returns a reference that is a specified number of rows/
+columns from a starting cell, often used for dynamic ranges. It's
+"volatile" because Excel recalculates it every time ANY cell in the
+workbook changes, not just its dependents, which can slow performance
+in large files.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 204,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What are named ranges and why use them?',
+    answer: `A named range assigns a readable name (e.g. "SalesData") to a
+cell or range, making formulas easier to read, reducing reference
+errors, and simplifying maintenance across a workbook.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 205,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between a Table (Ctrl+T) and a normal
+range in Excel?`,
+    answer: `An Excel Table auto-expands as new rows/columns are added, has
+structured references (e.g. Table1[Sales]), built-in filtering/sorting,
+and formulas auto-fill down new rows — a normal range does none of
+this automatically.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 206,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is Goal Seek used for?',
+    answer: `A what-if analysis tool that works backward — given a desired
+result for a formula, Goal Seek finds the input value needed to achieve
+it (e.g. "what sales figure gives me a 20% margin?").`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 207,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is What-If Analysis / Data Tables?',
+    answer: `A feature that shows how a formula's result changes as one or two
+input variables change, generating a table of possible outcomes —
+useful for sensitivity analysis (e.g. profit at different price points).`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 208,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is Solver, and when would you use it?',
+    answer: `An Excel add-in used to find an optimal value (max/min/target) for
+a formula by adjusting multiple variable cells, subject to constraints —
+used for optimization problems like maximizing profit given resource
+limits.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 209,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between AND/OR/NOT logical functions and
+nested IF?`,
+    answer: `AND/OR/NOT evaluate multiple conditions and return TRUE/FALSE,
+typically combined inside a single IF. Nested IF chains multiple IF
+statements to handle several distinct outcomes — AND/OR/NOT are usually
+cleaner when checking multiple conditions for ONE outcome.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 210,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the TEXT function used for?',
+    answer: `TEXT converts a number or date into a formatted text string
+(e.g. TEXT(A1,"dd-mmm-yyyy")), useful for concatenating numbers/dates
+into readable labels or messages.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 211,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the difference between Freeze Panes and Split?',
+    answer: `Freeze Panes locks specific rows/columns in place so they stay
+visible while scrolling. Split divides the window into multiple
+independently scrollable panes of the same sheet, without locking
+anything.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 212,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What are slicers in Excel Pivot Tables?',
+    answer: `Visual, clickable filter buttons for Pivot Table fields, making
+it easier and faster to filter data interactively compared to the
+standard dropdown filter.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 213,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between a Pivot Table and a Power Pivot
+Data Model?`,
+    answer: `A standard Pivot Table summarizes a single flat data range. A
+Power Pivot Data Model can combine multiple related tables (like a mini
+relational database), handle much larger datasets, and use DAX formulas
+for advanced calculations.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 214,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'How do you create a dynamic dashboard in Excel?',
+    answer: `Combine Excel Tables (for auto-expanding data), Pivot Tables/
+Pivot Charts linked to that data, slicers for interactivity, and
+formulas like INDEX-MATCH or XLOOKUP for dynamic summary cells — all
+laid out on a single sheet designed for at-a-glance viewing.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 215,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the difference between .xlsx and .xlsm file formats?',
+    answer: `.xlsx is a standard Excel workbook without macro support. .xlsm
+is a macro-enabled workbook that can store and run VBA code.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 216,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is a Tableau Story?',
+    answer: `A sequence of worksheets/dashboards arranged to narrate a
+data-driven storyline step by step, often used for presentations where
+each "story point" builds on the last.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 217,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is the difference between a Worksheet and a Dashboard in
+Tableau?`,
+    answer: `A Worksheet is a single chart/view built from one data source. A
+Dashboard combines multiple worksheets, filters, and objects into one
+interactive, unified view.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 218,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What are Sets in Tableau?',
+    answer: `Custom fields that define a subset of data based on a condition
+or manual selection (e.g. "Top 10 Customers"), which can be used in
+filters, colors, or calculations, and can be dynamic (auto-updating).`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 219,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What are Groups in Tableau, and how do they differ from Sets?',
+    answer: `Groups combine multiple dimension members into a single category
+(e.g. combining several cities into "West Region"). Unlike Sets, Groups
+are static categorizations of members rather than a dynamic in/out
+condition.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 220,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is a Dual-Axis chart in Tableau?',
+    answer: `A chart that overlays two measures on the same view using two
+separate Y-axes, useful for comparing two related but differently
+scaled metrics (e.g. Sales as bars and Profit Margin as a line).`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 221,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is the difference between Synchronized and Independent dual
+axes?`,
+    answer: `Synchronized axes share the same scale, aligning both measures on
+comparable ranges. Independent axes let each measure use its own scale,
+useful when the two measures have very different magnitudes.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 222,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is a Bins field in Tableau?',
+    answer: `A field that groups a continuous measure into equal-sized ranges
+(bins), commonly used to build histograms.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 223,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is the purpose of Tableau\'s "Show Me" panel?',
+    answer: `A built-in panel that recommends chart types based on the fields
+currently selected, helping users quickly build an appropriate
+visualization without manually configuring marks.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 224,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is context filter, and when do you use it?',
+    answer: `A filter set to run FIRST, before other filters, creating a
+temporary "context" table that other filters/calculations then operate
+on — used to improve performance on large datasets or to make other
+filters/dimensions dependent on it (e.g. Top N within a category).`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 225,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is the order of operations in Tableau (filter order)?',
+    answer: `Generally: Extract filters → Data Source filters → Context
+filters → Sets/Dimension filters → Measure filters → Table
+calculation filters. Understanding this order matters for getting
+correct Top-N and LOD results.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 226,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is a Tableau Data Source filter vs a Sheet-level filter?',
+    answer: `A Data Source filter applies at the connection level, restricting
+data across ALL sheets using that source. A Sheet-level filter applies
+only to the specific worksheet it's added to.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 227,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What are Reference Lines used for?',
+    answer: `Lines added to a view (e.g. average, median, constant value) to
+give visual context for how data points compare against a benchmark.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 228,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is Forecasting in Tableau?',
+    answer: `A built-in feature that uses exponential smoothing to project
+future values for a continuous time-based measure directly on a chart,
+without needing external statistical tools.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 229,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is the difference between Tableau Server and Tableau Online?',
+    answer: `Tableau Server is self-hosted on an organization's own
+infrastructure. Tableau Online is Tableau's fully managed cloud
+version of the same server platform, requiring no in-house hosting.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 230,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'How would you create a "Top N with Others" view in Tableau?',
+    answer: `Use a Set or Top N filter to isolate the top N members by a
+measure, then use a calculated field (often with an IF/set condition)
+to relabel everything outside that set as "Others" and group them into
+a single bar/slice.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 231,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is the difference between LAG() and LEAD()?',
+    answer: `LAG() returns the value from a previous row (based on a defined
+order), and LEAD() returns the value from a following row — both
+commonly used to compare a row to the one before/after it, e.g.
+month-over-month change.`,
+    sqlCode: `SELECT OrderDate, Amount,
+       LAG(Amount) OVER (ORDER BY OrderDate) AS PrevAmount,
+       LEAD(Amount) OVER (ORDER BY OrderDate) AS NextAmount
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 232,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is FIRST_VALUE() and LAST_VALUE()?',
+    answer: `Window functions that return the first or last value within a
+defined window frame/partition — e.g. finding the first purchase amount
+for each customer.`,
+    sqlCode: `SELECT CustomerID, OrderDate,
+       FIRST_VALUE(Amount) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS FirstOrderAmt
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 233,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is NTILE() used for?',
+    answer: `NTILE(n) divides ordered rows into n roughly equal-sized groups
+(buckets), commonly used to create quartiles/deciles, e.g. splitting
+customers into 4 spending tiers.`,
+    sqlCode: `SELECT CustomerID, Amount, NTILE(4) OVER (ORDER BY Amount DESC) AS Quartile
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 234,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'Explain the ROWS BETWEEN / RANGE BETWEEN frame clause.',
+    answer: `It defines exactly which rows within a partition a window
+function considers, relative to the current row (e.g. ROWS BETWEEN 2
+PRECEDING AND CURRENT ROW for a 3-row moving average). ROWS counts
+physical rows; RANGE groups by logical value, treating ties as one unit.`,
+    sqlCode: `SELECT OrderDate, Amount,
+       AVG(Amount) OVER (ORDER BY OrderDate ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS MovingAvg3
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 235,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `What is the difference between a scalar subquery and a
+table-valued subquery?`,
+    answer: `A scalar subquery returns exactly one value (one row, one
+column) and can be used anywhere a single value is expected. A
+table-valued (derived table) subquery returns multiple rows/columns and
+is used in the FROM clause like a virtual table.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 236,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is the difference between EXISTS and IN?',
+    answer: `EXISTS checks whether a subquery returns any rows at all (stops
+as soon as a match is found, often faster on large subqueries and
+handles NULLs safely). IN compares a value against a list/subquery
+result and can behave unexpectedly if the subquery returns NULLs.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 237,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is a query execution plan?',
+    answer: `A breakdown, generated by the database engine, of exactly how a
+query will be (or was) executed — which indexes are used, join
+algorithms chosen, and estimated costs — used to diagnose performance
+issues.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 238,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is index seek vs index scan?',
+    answer: `An Index Seek directly navigates to the needed rows using an
+index (fast, efficient for selective queries). An Index Scan reads the
+entire index sequentially (slower, happens when the query isn't
+selective enough or the optimizer can't use the index efficiently).`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 239,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is a covering index?',
+    answer: `An index that contains all the columns needed to satisfy a
+query (in the index itself or as included columns), letting the
+database answer the query without needing to look up the actual table
+rows — improving performance.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 240,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is query parameter sniffing?',
+    answer: `A SQL Server behavior where the optimizer caches an execution
+plan based on the parameter values used the FIRST time a query runs,
+which can lead to a suboptimal plan being reused for very different
+parameter values later.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 241,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is deadlock, and how do you avoid it?',
+    answer: `A deadlock occurs when two transactions each hold a lock the
+other needs, causing both to wait indefinitely; the database typically
+kills one automatically. Avoid it by accessing tables/rows in a
+consistent order across transactions, keeping transactions short, and
+using appropriate isolation levels.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 242,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is the difference between clustered index and heap table?',
+    answer: `A table with a clustered index has its data physically sorted and
+stored in that index's order. A heap table has no clustered index, so
+rows are stored in no particular physical order, which can make certain
+lookups slower.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 243,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `What is the difference between UNION and UNION ALL
+performance-wise?`,
+    answer: `UNION ALL is generally faster because it simply appends result
+sets without checking for duplicates. UNION performs an additional
+sort/distinct operation to remove duplicate rows, which adds overhead.`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 244,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'What is CROSS APPLY / OUTER APPLY used for (SQL Server)?',
+    answer: `APPLY lets you invoke a table-valued expression (often a
+correlated subquery or function) for each row of the outer query.
+CROSS APPLY behaves like an inner join (drops rows with no result);
+OUTER APPLY behaves like a left join (keeps them, with NULLs).`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 245,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'How do you find the Nth highest value generically?',
+    answer: `Use DENSE_RANK() to rank distinct values, then filter for the
+rank equal to N — this generalizes cleanly to any N and handles ties
+correctly, unlike LIMIT/OFFSET-based approaches.`,
+    sqlCode: `SELECT Salary FROM (
+    SELECT Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) AS rnk
+    FROM Employees
+) t WHERE rnk = 4;  -- change N here`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 246,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is a Python virtual environment, and why use one?',
+    answer: `An isolated Python environment with its own installed packages,
+separate from the system-wide installation — used so different
+projects can use different (even conflicting) package versions without
+interfering with each other.`,
+    pythonCode: `python -m venv venv
+source venv/bin/activate`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 247,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between a shallow copy and a deep copy?',
+    answer: `A shallow copy creates a new object but still references the
+same nested objects inside it (changes to nested data affect both). A
+deep copy recursively copies everything, so the two objects are
+completely independent.`,
+    pythonCode: `import copy
+shallow = copy.copy(original)
+deep = copy.deepcopy(original)`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 248,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What are Python decorators?',
+    answer: `Functions that wrap another function to add extra behavior
+(logging, timing, access control) without modifying the original
+function's code, applied using the @decorator_name syntax above a
+function definition.`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 249,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is list comprehension, and give an example.',
+    answer: `A concise way to create a list by applying an expression to each
+item in an iterable, optionally with a filter condition, in a single
+readable line instead of a multi-line for-loop.`,
+    pythonCode: 'squares = [x**2 for x in range(10) if x % 2 == 0]',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 250,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between a generator and a list?',
+    answer: `A list stores all its values in memory at once. A generator
+produces values one at a time, lazily, only when requested — much more
+memory-efficient for large or infinite sequences.`,
+    pythonCode: 'gen = (x**2 for x in range(1000000))  -- generator expression',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 251,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the GIL (Global Interpreter Lock)?',
+    answer: `A mechanism in CPython that allows only one thread to execute
+Python bytecode at a time, meaning multi-threading doesn't achieve true
+parallelism for CPU-bound tasks in Python (multiprocessing is used
+instead for that).`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 252,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between Pandas pivot_table() and
+groupby()?`,
+    answer: `groupby() groups rows and applies an aggregation, returning a
+long-format result. pivot_table() does grouping AND aggregation while
+also reshaping the result into a wide, spreadsheet-style table with
+rows/columns/values — essentially a groupby with a built-in reshape.`,
+    pythonCode: 'df.pivot_table(index="Region", columns="Product", values="Sales", aggfunc="sum")',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 253,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the melt() function in Pandas used for?',
+    answer: `melt() reshapes a wide DataFrame into a long ("tidy") format,
+turning multiple columns into rows — the opposite of pivot_table().`,
+    pythonCode: 'pd.melt(df, id_vars=["CustomerID"], value_vars=["Jan","Feb","Mar"])',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 254,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'How do you detect and remove outliers using Pandas/NumPy?',
+    answer: `Use the IQR method or Z-score to flag values outside an
+acceptable range, then filter them out.`,
+    pythonCode: `Q1, Q3 = df["Salary"].quantile([0.25, 0.75])
+IQR = Q3 - Q1
+df_clean = df[(df["Salary"] >= Q1 - 1.5*IQR) & (df["Salary"] <= Q3 + 1.5*IQR)]`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 255,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is broadcasting in NumPy?',
+    answer: `A mechanism that lets NumPy perform element-wise operations
+between arrays of different (but compatible) shapes without explicitly
+copying data — e.g. adding a single number to every element of an
+array automatically.`,
+    pythonCode: `arr = np.array([1, 2, 3])
+result = arr + 10  -- 10 is "broadcast" to each element`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 256,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between axis=0 and axis=1 in Pandas?',
+    answer: `axis=0 refers to operations performed down the rows (column-wise
+aggregation, e.g. df.sum(axis=0) sums each column). axis=1 refers to
+operations performed across columns (row-wise aggregation, e.g.
+df.sum(axis=1) sums each row).`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 257,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'How do you merge datasets with different key names in Pandas?',
+    answer: `Use the left_on and right_on parameters of merge() to specify
+different column names to join on from each DataFrame.`,
+    pythonCode: 'pd.merge(df1, df2, left_on="CustID", right_on="CustomerID", how="left")',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 258,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is a MultiIndex in Pandas?',
+    answer: `A hierarchical index with multiple levels on rows and/or columns,
+allowing higher-dimensional data to be represented in a 2D DataFrame,
+commonly produced by groupby() with multiple keys or pivot_table().`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 259,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'How would you profile/speed up a slow Pandas script?',
+    answer: `Use vectorized operations instead of row-wise loops/apply()
+where possible, avoid unnecessary copies, use appropriate dtypes
+(e.g. category for repeated strings), read only needed columns, and
+profile with tools like %timeit or cProfile to find the actual
+bottleneck before optimizing.`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 260,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between .values, .to_numpy(), and
+.tolist() in Pandas?`,
+    answer: `.values and .to_numpy() both return the underlying data as a
+NumPy array (.to_numpy() is the newer, more explicit, recommended
+method). .tolist() converts the data into a native Python list instead
+of a NumPy array.`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 261,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: `What is the difference between one-tailed and two-tailed
+hypothesis tests?`,
+    answer: `A one-tailed test checks for an effect in only ONE specific
+direction (e.g. "is the new version better?"). A two-tailed test
+checks for a difference in EITHER direction (e.g. "is the new version
+different, better or worse?").`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 262,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is a Chi-Square test used for?',
+    answer: `A statistical test used to determine whether there's a
+significant association between two categorical variables (e.g. does
+gender relate to product preference?), by comparing observed vs
+expected frequencies.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 263,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is ANOVA?',
+    answer: `Analysis of Variance — a statistical test used to compare the
+means of three or more groups at once to see if at least one group's
+mean is significantly different from the others.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 264,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: `What is the difference between parametric and non-parametric
+tests?`,
+    answer: `Parametric tests (e.g. t-test, ANOVA) assume the data follows a
+specific distribution (usually normal) and estimate parameters like
+mean/variance. Non-parametric tests (e.g. Chi-Square, Mann-Whitney U)
+make fewer assumptions about the underlying distribution.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 265,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Multicollinearity?',
+    answer: `A situation in regression analysis where two or more independent
+variables are highly correlated with each other, making it difficult
+to isolate each variable's individual effect on the outcome and
+destabilizing coefficient estimates.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 266,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is R-squared, and what does it tell you?',
+    answer: `A statistic (0 to 1) that represents the proportion of variance
+in the dependent variable explained by the independent variable(s) in a
+regression model — higher generally means a better fit, but doesn't
+imply causation or that the model is correctly specified.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 267,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is the difference between R-squared and Adjusted R-squared?',
+    answer: `R-squared always increases (or stays the same) as more predictors
+are added, even useless ones. Adjusted R-squared penalizes adding
+predictors that don't meaningfully improve the model, making it more
+reliable for comparing models with different numbers of variables.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 268,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Heteroscedasticity?',
+    answer: `A pattern where the variability (spread) of a regression model's
+errors is not constant across all levels of the independent variable —
+violates a key regression assumption and can make standard errors
+unreliable.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 269,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Time Series Seasonality vs Trend?',
+    answer: `Trend is the long-term upward or downward movement in data over
+time. Seasonality is a regular, predictable pattern that repeats at
+fixed intervals (e.g. higher retail sales every December).`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 270,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Moving Average, and why is it used?',
+    answer: `An average recalculated over a sliding window of recent data
+points (e.g. a 7-day moving average), used to smooth out short-term
+fluctuations/noise and reveal the underlying trend.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 271,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is the Pareto Principle (80/20 rule) in data analysis?',
+    answer: `The observation that roughly 80% of outcomes often come from 20%
+of causes (e.g. 80% of revenue from 20% of customers) — used to help
+prioritize where analysis or business focus will have the most impact.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 272,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Cohort Analysis?',
+    answer: `A technique that groups users/customers by a shared starting
+point (e.g. signup month) and tracks their behavior over time,
+commonly used to measure retention.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 273,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Survivorship Bias?',
+    answer: `A logical error that occurs when analysis only considers
+"survivors" (e.g. currently active customers, successful companies)
+while ignoring those that dropped out or failed, leading to overly
+optimistic or misleading conclusions.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 274,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is Simpson\'s Paradox?',
+    answer: `A phenomenon where a trend appears in several different groups of
+data but disappears or reverses when those groups are combined —
+usually caused by a lurking/confounding variable.`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 275,
+    section: 23,
+    sectionTitle: 'Advanced / Business Statistics',
+    category: 'Statistics',
+    question: 'What is the difference between Leading and Lagging indicators?',
+    answer: `A Leading indicator predicts future performance (e.g. website
+traffic predicting future sales). A Lagging indicator reflects past
+performance after the fact (e.g. quarterly revenue).`,
+    difficulty: 'Advanced',
+    tags: ['statistics', 'section-23'],
+  },
+  {
+    id: 276,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is a Data Pipeline?',
+    answer: `An automated series of steps that moves data from one or more
+sources through processing/transformation stages into a destination
+system (e.g. a data warehouse), typically run on a schedule or trigger.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 277,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: `What is the difference between Batch processing and
+Streaming/real-time processing?`,
+    answer: `Batch processing handles data in large chunks at scheduled
+intervals (e.g. nightly ETL jobs). Streaming processing handles data
+continuously as it arrives, with near-instant results (e.g. live
+transaction monitoring).`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 278,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is a Staging Area in ETL?',
+    answer: `An intermediate storage area where raw data is temporarily loaded
+from source systems before being cleaned, transformed, and moved into
+the final target tables — isolates raw extraction from transformation
+logic.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 279,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Data Partitioning, and why is it used?',
+    answer: `Splitting a large table into smaller, more manageable pieces
+(commonly by date range) so queries can scan only the relevant
+partitions instead of the entire table, improving performance.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 280,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Slowly Changing Dimension (SCD), and what are its types?',
+    answer: `A technique for handling changes to dimension data (e.g. a
+customer's address changing) over time in a data warehouse.
+Type 1: overwrite the old value (no history kept).
+Type 2: keep history by adding a new row with effective dates.
+Type 3: keep limited history in additional columns (e.g. "previous
+value").`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 281,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: `What is Snowflake Schema, and how does it differ from Star
+Schema?`,
+    answer: `A Snowflake Schema normalizes dimension tables into multiple
+related sub-tables (reducing redundancy but requiring more joins). A
+Star Schema keeps dimension tables flat and denormalized, prioritizing
+simpler, faster queries.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 282,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is a Surrogate Key vs Natural Key?',
+    answer: `A Natural Key is a business-meaningful identifier already present
+in the source data (e.g. an email address). A Surrogate Key is an
+artificial, system-generated key (often a simple integer) used
+internally in the warehouse, independent of any business meaning.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 283,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Change Data Capture (CDC)?',
+    answer: `A technique for identifying and capturing only the rows that have
+changed (inserted, updated, deleted) in a source system since the last
+extraction, rather than reloading the entire dataset each time.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 284,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Data Deduplication in a pipeline context?',
+    answer: `The process of identifying and removing duplicate records as data
+flows through a pipeline, often based on matching keys or fuzzy
+matching rules, to ensure downstream tables/reports aren't inflated.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 285,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is idempotency in a data pipeline, and why does it matter?',
+    answer: `A pipeline is idempotent if running it multiple times with the
+same input produces the same result without creating duplicates or
+errors — important because pipelines often need to be safely re-run
+after failures.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 286,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What are common cloud data warehouse platforms?',
+    answer: `Examples include Snowflake, Google BigQuery, Amazon Redshift, and
+Azure Synapse Analytics — all designed for large-scale analytical
+(OLAP) workloads in the cloud.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 287,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Apache Airflow used for?',
+    answer: `An open-source platform for programmatically authoring,
+scheduling, and monitoring data pipelines/workflows, represented as
+DAGs (Directed Acyclic Graphs) of tasks.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 288,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: `What is a Data Lake, and how does it differ from a Data
+Warehouse?`,
+    answer: `A Data Lake stores raw data in its native format (structured,
+semi-structured, unstructured) at large scale, with schema applied
+only when read. A Data Warehouse stores structured, cleaned, schema-
+enforced data optimized for reporting and analysis.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 289,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is Data Latency, and why does it matter for reporting?',
+    answer: `The delay between when an event happens in a source system and
+when it's reflected in the reporting/analytics layer — matters because
+high latency can mean decisions are made on stale data.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 290,
+    section: 24,
+    sectionTitle: 'Data Warehousing, ETL & Data Pipelines',
+    category: 'Data Governance',
+    question: 'What is a Schema-on-Read vs Schema-on-Write approach?',
+    answer: `Schema-on-Write enforces structure when data is loaded (typical
+of data warehouses). Schema-on-Read stores raw data as-is and applies
+structure only when it's queried/read (typical of data lakes),
+offering more flexibility but less upfront validation.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-24'],
+  },
+  {
+    id: 291,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is GDPR, and why does it matter for data analysts?',
+    answer: `The General Data Protection Regulation is an EU law governing how
+personal data of EU residents is collected, processed, and stored. It
+matters because analysts must ensure data handling (e.g. reports,
+exports, retention) complies with consent, minimization, and
+right-to-access/erasure requirements.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 292,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is PII (Personally Identifiable Information)?',
+    answer: `Any data that can be used, alone or combined with other data, to
+identify a specific individual — e.g. name, email, phone number,
+national ID, or IP address — requiring special handling and protection.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 293,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is Data Anonymization vs Data Masking?',
+    answer: `Anonymization permanently and irreversibly removes identifying
+information so individuals can't be re-identified. Masking obscures
+sensitive data (e.g. showing only the last 4 digits of a card number)
+but may be reversible with proper authorization, often used in
+non-production environments.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 294,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is the Right to be Forgotten?',
+    answer: `A GDPR provision giving individuals the right to request that
+their personal data be deleted from an organization's systems, subject
+to certain legal exceptions.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 295,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is Data Retention Policy?',
+    answer: `A defined set of rules stating how long different types of data
+should be kept before being archived or deleted, balancing business/
+legal needs against privacy and storage cost considerations.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 296,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is Role-Based Access Control (RBAC)?',
+    answer: `A security model where data/system access permissions are
+assigned based on a user's role (e.g. Analyst, Manager, Admin) rather
+than to each individual separately, simplifying and standardizing
+access management.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 297,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: `What is a Data Breach, and what is an analyst's responsibility
+if they notice one?`,
+    answer: `A Data Breach is unauthorized access, exposure, or loss of
+sensitive data. If an analyst notices signs of one (e.g. exposed PII in
+a shared file), they should report it immediately to the appropriate
+security/compliance team rather than attempting to fix or hide it
+themselves.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 298,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: `What is Data Classification (public/internal/confidential/
+restricted)?`,
+    answer: `The practice of categorizing data based on its sensitivity level,
+which then determines what access controls, encryption, and handling
+rules apply to it.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 299,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is HIPAA, and when is it relevant?',
+    answer: `The Health Insurance Portability and Accountability Act is a US
+law protecting patient health information. It's relevant for analysts
+working with healthcare data, requiring strict controls on how such
+data is stored, shared, and reported.`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 300,
+    section: 25,
+    sectionTitle: 'Data Privacy, Compliance & Governance',
+    category: 'Data Governance',
+    question: 'What is the difference between Data Privacy and Data Security?',
+    answer: `Data Privacy concerns the appropriate collection, use, and
+sharing of personal data (the "should we" question, often governed by
+policy/law). Data Security concerns protecting data from unauthorized
+access or breaches (the "can they" question, addressed through
+technical controls).`,
+    difficulty: 'Advanced',
+    tags: ['data governance', 'section-25'],
+  },
+  {
+    id: 301,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is the CALCULATE() function in DAX?',
+    answer: `One of the most powerful DAX functions — it evaluates an
+expression while modifying the filter context (adding, removing, or
+overriding filters), e.g. calculating sales for a specific category
+regardless of what's selected on the report page.
+Sales_Electronics = CALCULATE(SUM(Sales[Amount]), Sales[Category] = "Electronics")`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 302,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is Filter Context vs Row Context in DAX?',
+    answer: `Row Context evaluates a formula one row at a time (as in
+calculated columns). Filter Context is the set of filters currently
+applied to a calculation (from slicers, rows/columns in a visual, or
+CALCULATE) that determines which rows are included when a measure is
+evaluated.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 303,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is the difference between SUMX and SUM?',
+    answer: `SUM simply adds up values in a single column. SUMX is an
+iterator that evaluates an expression row-by-row across a table and
+then sums the results — needed when the calculation itself (not just
+the column) varies per row, e.g. SUMX(Sales, Sales[Qty] * Sales[Price]).`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 304,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What are Time Intelligence functions in DAX?',
+    answer: `Built-in DAX functions (e.g. TOTALYTD, SAMEPERIODLASTYEAR,
+DATEADD) that make date-based calculations like year-to-date, prior
+period comparisons, and rolling totals much easier, provided a proper
+Date table is in the model.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 305,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is a Bridge Table in Power BI?',
+    answer: `A table used to resolve many-to-many relationships between two
+other tables, acting as an intermediary that both tables relate to
+individually.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 306,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: `What is the difference between a One-to-Many and Many-to-Many
+relationship in Power BI?`,
+    answer: `One-to-Many means one row in a table (e.g. Product) can relate to
+many rows in another (e.g. Sales) — the standard, preferred
+relationship type. Many-to-Many means rows on both sides can relate to
+multiple rows on the other side, which is more complex to model
+correctly and can affect performance.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 307,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is a Bookmark in Power BI?',
+    answer: `A saved snapshot of a report page's current state (filters,
+visibility, sort order) that can be recalled with a click — often used
+to build interactive navigation or toggle between views.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 308,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What are Power BI Dataflows?',
+    answer: `Reusable, cloud-based ETL processes (built with Power Query
+Online) that extract, clean, and transform data once, so multiple
+reports/datasets can reuse the same prepared data instead of
+duplicating transformation logic.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 309,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: 'What is the Q&A / natural language query feature in Power BI?',
+    answer: `A feature that lets users type plain-language questions (e.g.
+"total sales by region last quarter") and have Power BI automatically
+generate a matching visual from the underlying data model.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 310,
+    section: 26,
+    sectionTitle: 'Advanced Power BI & DAX',
+    category: 'Power BI',
+    question: `What is the difference between a Report and a Dashboard in Power
+BI Service?`,
+    answer: `A Report is a multi-page, interactive set of visuals built from
+one dataset, with full filtering/drill-down. A Dashboard is a
+single-page collection of pinned visuals (called tiles), which can pull
+from multiple reports/datasets, but with more limited interactivity.`,
+    difficulty: 'Advanced',
+    tags: ['power bi', 'section-26'],
+  },
+  {
+    id: 311,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Churn Rate, and how is it calculated?',
+    answer: `The percentage of customers (or revenue) lost over a given
+period. Formula: Churn Rate = (Customers Lost During Period / Customers
+at Start of Period) × 100.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 312,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Net Promoter Score (NPS)?',
+    answer: `A customer loyalty metric based on the question "How likely are
+you to recommend us?" (0-10 scale). Respondents are grouped into
+Promoters (9-10), Passives (7-8), and Detractors (0-6); NPS = %
+Promoters − % Detractors.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 313,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Customer Acquisition Cost (CAC)?',
+    answer: `The average cost of acquiring one new customer, calculated as
+Total Sales & Marketing Spend ÷ Number of New Customers Acquired over a
+period.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 314,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: `What is Customer Lifetime Value (CLV) and how is it typically
+calculated?`,
+    answer: `The total revenue/profit a business expects from a customer over
+the entire relationship. A common simple formula: CLV = Average
+Purchase Value × Purchase Frequency × Average Customer Lifespan.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 315,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is the difference between Gross Margin and Net Margin?',
+    answer: `Gross Margin = (Revenue − Cost of Goods Sold) / Revenue, showing
+profitability before operating expenses. Net Margin = Net Profit /
+Revenue, showing profitability after ALL expenses, taxes, and interest.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 316,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Conversion Rate Optimization (CRO)?',
+    answer: `The practice of analyzing and testing changes to a website/app
+(layout, copy, flow) to increase the percentage of visitors who
+complete a desired action, such as a purchase or signup.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 317,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is a Funnel Analysis?',
+    answer: `An analysis that tracks how users move through a sequence of
+steps toward a goal (e.g. Visit → Add to Cart → Checkout → Purchase),
+identifying where the largest drop-offs occur.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 318,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Cohort Retention?',
+    answer: `The percentage of users from a specific starting cohort (e.g.
+signed up in January) who remain active at subsequent points in time
+(Week 1, Week 2, Month 1, etc.), used to measure how "sticky" a product
+is.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 319,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is the North Star Metric?',
+    answer: `A single metric that best captures the core value a product
+delivers to customers, chosen as the primary focus for teams to align
+around (e.g. "weekly active users" for a social app).`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 320,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: `What is the difference between Leading Indicators and Vanity
+Metrics?`,
+    answer: `Leading indicators predict future outcomes and can inform action
+(e.g. trial signups predicting future revenue). Vanity metrics look
+impressive (e.g. total downloads) but don't reliably connect to
+business outcomes or actionable decisions.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 321,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Market Basket Analysis?',
+    answer: `A technique that analyzes which products are frequently
+purchased together (association rules, e.g. "customers who buy bread
+often buy butter"), commonly used for cross-selling and store layout
+decisions.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 322,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is RFM Analysis (Recency, Frequency, Monetary)?',
+    answer: `A customer segmentation technique scoring customers on how
+Recently they purchased, how Frequently they purchase, and how much
+Money they spend — used to identify high-value, at-risk, or loyal
+customer segments.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 323,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Year-over-Year (YoY) vs Month-over-Month (MoM) analysis?',
+    answer: `YoY compares a metric to the same period one year earlier
+(accounts for seasonality). MoM compares a metric to the immediately
+preceding month (shows short-term momentum but can be noisy/seasonal).`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 324,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is Benchmarking in business analytics?',
+    answer: `Comparing a company's metrics/performance against industry
+standards, competitors, or its own historical performance to assess
+how well it's doing and identify improvement areas.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 325,
+    section: 27,
+    sectionTitle: 'Business Analytics & KPI Frameworks',
+    category: 'General',
+    question: 'What is the Balanced Scorecard framework?',
+    answer: `A strategic performance management framework that tracks an
+organization's goals across four perspectives — Financial, Customer,
+Internal Process, and Learning & Growth — rather than financial metrics
+alone.
+(Sample talking points — tailor with your own real examples)`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-27'],
+  },
+  {
+    id: 326,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'Why do you want to work as a Data Analyst?',
+    answer: `Sample answer: "I enjoy the mix of technical problem-solving and
+business impact — taking raw, messy data and turning it into something
+that directly informs a decision. My background combining ERP
+development (D365 F&O/X++) with data analysis tools like SQL, Tableau,
+and Collibra gives me a practical, end-to-end view of how data moves
+from source systems into insights."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 327,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'What is your greatest strength as a Data Analyst?',
+    answer: `Sample answer: "Attention to detail combined with persistence in
+tracing data issues back to their root cause — for example, during my
+Data Gyan internship I identified 500+ data quality issues by
+methodically validating records rather than accepting them at face
+value."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 328,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'What is your biggest weakness, and how are you addressing it?',
+    answer: `Sample answer: "I'm still building depth in Python for data
+analysis, since my formal background leaned more toward SQL, Tableau,
+and X++. I'm actively practicing with structured exercises to close
+that gap."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 329,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: `Describe a time you made a mistake in an analysis — what
+happened?`,
+    answer: `Sample structure (STAR): describe the specific mistake (e.g. a
+misjoined table inflating a total), how you caught it (validation
+against source totals), how you corrected and communicated it, and
+what process change you made afterward to prevent it recurring.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 330,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'How do you handle receiving critical feedback on your work?',
+    answer: `Sample answer: "I treat it as useful information rather than a
+personal judgment — I ask clarifying questions to fully understand the
+concern, make the correction, and where useful, adjust my process so
+the same issue doesn't recur."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 331,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'Where do you see yourself in 3-5 years?',
+    answer: `Sample answer: "Growing from an entry-level Data Analyst into a
+more senior analytics or data governance role, building deeper
+expertise in tools like Collibra and SQL while continuing to develop my
+Python and statistical skills."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 332,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'How do you manage your time across multiple projects?',
+    answer: `Sample answer: "I clarify priorities and deadlines with
+stakeholders upfront, break larger tasks into smaller milestones, and
+keep a running list so nothing slips — reprioritizing quickly when
+something more urgent comes in."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 333,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: `Describe a time you had to learn a new tool quickly for a
+project.`,
+    answer: `Tailor this to a real example — e.g. picking up X++ and D365
+F&O development at Ghora Technologies, or ramping up on Collibra for
+data governance work, and how you structured your learning to become
+productive quickly.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 334,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'How would your previous manager/colleagues describe you?',
+    answer: `Sample answer: "Reliable and thorough — someone who double-checks
+their numbers before sharing them, communicates clearly when something
+is blocked, and is comfortable asking questions rather than guessing."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 335,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: `What do you do when you don't know the answer to a stakeholder's
+question?`,
+    answer: `Sample answer: "I'm upfront that I don't have the answer yet
+rather than guessing, give a realistic timeframe for when I can find
+out, and follow up once I've properly investigated rather than leaving
+it open-ended."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 336,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: `How do you handle disagreements with a teammate about an
+approach?`,
+    answer: `Sample answer: "I focus on the data and the business goal rather
+than personal preference — laying out the trade-offs of each approach
+and, where there's genuine uncertainty, proposing a quick test or
+second opinion rather than letting it become a standoff."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 337,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'What questions do you ask before starting a new analysis?',
+    answer: `Sample answer: "What decision will this analysis inform? Who's
+the audience? What does 'done' look like? What's the deadline? And
+where does the data actually live, and can I trust it?"`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 338,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'How do you balance speed vs accuracy in your work?',
+    answer: `Sample answer: "For quick directional questions, I'll give a fast
+estimate and clearly flag it as such. For anything feeding a real
+decision or going to leadership, I take the extra time to validate
+because a wrong number is worse than a slow one."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 339,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: `What's a data project you'd like to work on if you had
+unlimited resources?`,
+    answer: `Open-ended — a good answer ties personal interest to a concrete,
+believable project (e.g. building an end-to-end data governance
+framework connecting D365 F&O source data to a Collibra catalog with
+automated quality scoring) rather than something vague.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 340,
+    section: 28,
+    sectionTitle: 'Behavioral & Career Development Questions',
+    category: 'Behavioral',
+    question: 'Why should we hire you over other candidates?',
+    answer: `Sample answer: "My combination of hands-on SQL/Tableau/data
+quality experience with real ERP development exposure (D365 F&O,
+X++) is an unusual pairing for an early-career candidate — I understand
+both how business data gets created in source systems and how to
+analyze and govern it afterward."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-28'],
+  },
+  {
+    id: 341,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is Git, and why is it useful for a data analyst?',
+    answer: `Git is a version control system that tracks changes to files
+(scripts, notebooks, SQL files) over time. It's useful for analysts to
+keep a history of changes, collaborate without overwriting each
+other's work, and safely experiment using branches.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 342,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is the difference between git commit and git push?',
+    answer: `git commit saves a snapshot of changes to your LOCAL repository
+history. git push uploads those committed changes to a REMOTE
+repository (e.g. GitHub) so others can see/access them.`,
+    sqlCode: `git add .
+git commit -m "add cleaned sales dataset script"
+git push origin main`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 343,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: `What is a Jupyter Notebook, and why is it popular for data
+analysis?`,
+    answer: `An interactive, browser-based coding environment that lets you
+mix executable code, output (tables, charts), and formatted text/
+explanations in one document — popular because it makes exploratory
+data analysis and sharing results easy.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 344,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: `What is Google Colab, and how does it differ from local
+Jupyter?`,
+    answer: `Google Colab is a free, cloud-hosted Jupyter Notebook environment
+that runs on Google's servers (with optional free GPU access) and
+requires no local setup, whereas local Jupyter runs on your own
+machine using your own installed Python environment.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 345,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What are the key differences between Google Sheets and Excel?',
+    answer: `Google Sheets is cloud-based, supports real-time multi-user
+collaboration, and integrates natively with other Google tools/APIs
+(Apps Script, QUERY, IMPORTRANGE). Excel offers more advanced
+functions, Power Query/Power Pivot, and better performance on very
+large datasets, but is traditionally more desktop/file-based.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 346,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is Google Sheets\' QUERY function used for?',
+    answer: `QUERY lets you run SQL-like statements (SELECT, WHERE, GROUP BY,
+ORDER BY) directly on a range of cells, useful for filtering and
+summarizing data without complex nested formulas.`,
+    sqlCode: '=QUERY(A1:D100, "SELECT B, SUM(D) WHERE C = \'Sales\' GROUP BY B", 1)',
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 347,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: `What is version control, and why does it matter for analytics
+scripts?`,
+    answer: `The practice of tracking and managing changes to code/files over
+time. It matters for analytics scripts because it lets you see what
+changed and why, roll back a broken query/script, and collaborate
+without emailing files back and forth.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 348,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is a requirements.txt file used for in Python projects?',
+    answer: `A text file listing the exact Python packages (and often
+versions) a project depends on, so anyone can recreate the same
+environment with a single command.`,
+    sqlCode: 'pip install -r requirements.txt',
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 349,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is the difference between a .csv and a .parquet file?',
+    answer: `CSV is a simple, human-readable, row-based text format, widely
+compatible but inefficient for very large datasets. Parquet is a
+compressed, column-oriented binary format that's much faster to read/
+query for large-scale analytics, though not human-readable.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 350,
+    section: 29,
+    sectionTitle: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)',
+    category: 'General',
+    question: 'What is an API, and how might a data analyst use one?',
+    answer: `An API (Application Programming Interface) is a defined way for
+one system to request data or functionality from another. A data
+analyst might use an API to pull data directly from a source (e.g. a
+marketing platform or a public data provider) into a script or
+dashboard instead of manual exports.`,
+    difficulty: 'Intermediate',
+    tags: ['general', 'section-29'],
+  },
+  {
+    id: 351,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: `What is the difference between Supervised and Unsupervised
+Learning?`,
+    answer: `Supervised Learning trains a model on labeled data (inputs paired
+with known correct outputs) to predict outcomes, e.g. predicting churn.
+Unsupervised Learning finds patterns/structure in unlabeled data
+without predefined outcomes, e.g. customer segmentation via clustering.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 352,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is Overfitting vs Underfitting?',
+    answer: `Overfitting means a model learns the training data too closely
+(including its noise), performing well on training data but poorly on
+new data. Underfitting means a model is too simple to capture the
+underlying pattern, performing poorly on both training and new data.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 353,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is a Training set vs Test set vs Validation set?',
+    answer: `The Training set is used to fit the model. The Validation set is
+used during development to tune parameters and compare models. The
+Test set is held back entirely until the end, to give an unbiased
+estimate of how the final model performs on unseen data.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 355,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is Classification vs Regression?',
+    answer: `Classification predicts a discrete category/label (e.g. will a
+customer churn: yes/no). Regression predicts a continuous numeric
+value (e.g. predicted revenue next month).`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 356,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is Clustering, and what is K-Means used for?',
+    answer: `Clustering is an unsupervised technique that groups similar data
+points together without predefined labels. K-Means is a popular
+clustering algorithm that partitions data into K groups by minimizing
+the distance between points and their assigned cluster's center —
+often used for customer segmentation.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 357,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is a Confusion Matrix?',
+    answer: `A table summarizing a classification model's predictions against
+actual outcomes, broken into True Positives, True Negatives, False
+Positives, and False Negatives — the basis for metrics like precision,
+recall, and accuracy.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 358,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is the difference between Precision and Recall?',
+    answer: `Precision measures how many of the model's positive predictions
+were actually correct (True Positives / Predicted Positives). Recall
+measures how many of the actual positives the model successfully
+caught (True Positives / Actual Positives). There's often a trade-off
+between the two.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 359,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is Cross-Validation?',
+    answer: `A technique for evaluating a model's performance by splitting the
+data into multiple folds, training on some folds and testing on the
+remaining fold, then rotating — giving a more reliable performance
+estimate than a single train/test split.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 360,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is a Decision Tree, in simple terms?',
+    answer: `A model that makes predictions by asking a series of yes/no
+questions about the data (e.g. "Is Salary > 50000?"), splitting the
+data at each step, until arriving at a final prediction — easy to
+visualize and interpret.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 361,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is the difference between Bagging and Boosting?',
+    answer: `Bagging (e.g. Random Forest) trains many models independently in
+parallel on random subsets of data and averages their results to
+reduce variance. Boosting (e.g. XGBoost) trains models sequentially,
+with each new model focusing on correcting the errors of the previous
+ones, to reduce bias.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 362,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: `What is Feature Importance, and why does it matter for a data
+analyst?`,
+    answer: `A measure of how much each input variable contributes to a
+model's predictions. It matters for analysts because it can reveal
+which business factors most influence an outcome (e.g. which factors
+drive churn most), even without needing to fully build the model
+themselves.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 363,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: `What is the difference between a Data Analyst's and a Data
+Scientist's involvement in an ML project?`,
+    answer: `A Data Analyst typically handles data exploration, cleaning,
+defining the business question, and interpreting/communicating model
+results. A Data Scientist typically builds, tunes, and validates the
+predictive models themselves.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 364,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: 'What is Model Drift?',
+    answer: `A gradual decline in a deployed model's performance over time as
+real-world data patterns shift away from what the model was originally
+trained on — requiring monitoring and periodic retraining.`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 365,
+    section: 30,
+    sectionTitle: 'Machine Learning Fundamentals for Analysts',
+    category: 'Machine Learning',
+    question: `What is a simple example of how ML could improve a reporting
+process you already do manually?`,
+    answer: `Sample answer: "Instead of manually flagging unusual transactions
+for data quality review, a simple anomaly-detection model could
+automatically surface outliers for me to investigate, saving time
+versus scanning every record manually."`,
+    difficulty: 'Advanced',
+    tags: ['machine learning', 'section-30'],
+  },
+  {
+    id: 366,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Variance Analysis in financial reporting?',
+    answer: `Comparing actual financial results against a budget or forecast,
+and investigating the reasons behind significant differences
+(favorable or unfavorable variances).`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 367,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Working Capital, and why does it matter?',
+    answer: `Working Capital = Current Assets − Current Liabilities. It
+matters because it indicates a company's short-term liquidity — its
+ability to cover near-term obligations with assets it can quickly
+convert to cash.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 368,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Attribution Modeling in marketing analytics?',
+    answer: `A method for assigning credit for a conversion (e.g. a sale)
+across the different marketing touchpoints a customer interacted with
+(e.g. first-click, last-click, or multi-touch models), used to
+understand which channels are actually driving results.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 369,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: `What is Customer Segmentation, and what techniques are used for
+it?`,
+    answer: `The practice of dividing customers into meaningful groups based
+on shared characteristics (demographics, behavior, spending).
+Techniques include RFM analysis, K-Means clustering, and rule-based
+segmentation.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 370,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: `What is Employee Attrition Rate, and how would you calculate
+it?`,
+    answer: `The rate at which employees leave an organization over a period.
+Formula: Attrition Rate = (Number of Employees Who Left / Average
+Total Employees) × 100.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 371,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Headcount Planning / Workforce Analytics?',
+    answer: `The use of data to forecast staffing needs, analyze workforce
+trends (attrition, hiring velocity, tenure), and support decisions
+about hiring, restructuring, or resource allocation.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 372,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Return on Investment (ROI), and how is it calculated?',
+    answer: `A measure of the profitability of an investment relative to its
+cost. Formula: ROI = (Net Gain from Investment − Cost of Investment) /
+Cost of Investment × 100.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 373,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is A/B Testing used for in a marketing campaign context?',
+    answer: `Comparing two versions of a marketing asset (e.g. two email
+subject lines or ad creatives) by showing each to a random subset of
+the audience, to statistically determine which performs better on a
+target metric like click-through or conversion rate.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 374,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: 'What is Days Sales Outstanding (DSO)?',
+    answer: `A metric measuring the average number of days it takes a company
+to collect payment after a sale, calculated as (Accounts Receivable /
+Total Credit Sales) × Number of Days — lower DSO generally means
+faster cash collection.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 375,
+    section: 31,
+    sectionTitle: 'Domain-Specific Analytics (Finance, Marketing, HR)',
+    category: 'General',
+    question: `What is Employee Engagement Score, and how is it typically
+measured?`,
+    answer: `A metric summarizing how motivated, committed, and satisfied
+employees are, typically measured through periodic survey questions
+(e.g. on a 1-5 scale) and aggregated into an overall score, often
+tracked over time and by department.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-31'],
+  },
+  {
+    id: 376,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How would you present a negative finding (e.g. declining
+revenue) to leadership?`,
+    answer: `Sample approach: lead with the headline finding clearly and
+factually, provide supporting context (what changed, when, by how
+much), avoid burying it in caveats, and where possible pair it with
+a recommended next step or further investigation rather than just
+delivering bad news with no direction.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 377,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: 'What is the "So What?" test for a data insight?',
+    answer: `A check on whether a finding is actually useful — after stating a
+result, asking "so what should someone DO differently because of
+this?" If there's no clear action or decision it informs, the insight
+likely needs to be reframed or isn't ready to present.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 378,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How do you decide what NOT to include in an executive
+dashboard?`,
+    answer: `Sample answer: "I focus on metrics tied directly to the
+decisions that audience actually makes, and cut anything that's
+'interesting but not actionable' for them — detailed operational
+metrics can live in a secondary, more detailed report instead."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 379,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `Describe how you'd structure a data analysis project from
+request to delivery.`,
+    answer: `Sample structure: 1) Clarify the business question and audience;
+2) Identify and validate data sources; 3) Clean/prepare the data; 4)
+Analyze; 5) Build the visualization/report; 6) Review findings against
+the original question; 7) Present with clear takeaways and next steps.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 380,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How do you handle a stakeholder who wants a report "by end of
+day" for a complex analysis?`,
+    answer: `Sample answer: "I'd clarify what decision is driving the
+urgency, offer a quick, clearly-caveated directional answer if
+possible today, and be transparent about what a fully validated
+version would need and when that could realistically be ready."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 381,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How do you document your SQL queries or Python scripts for
+other team members?`,
+    answer: `Use clear comments explaining the purpose of each major step (not
+just what the code does, but why), consistent naming conventions,
+a brief header describing inputs/outputs/assumptions, and where
+relevant, a short README for larger scripts or projects.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 382,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How would you explain the difference between correlation and
+causation to a non-technical manager?`,
+    answer: `Sample answer: "Correlation means two things tend to move
+together — like ice cream sales and sunburns both rising in summer.
+That doesn't mean one causes the other; a third factor, like hot
+weather, is driving both. I'd want more evidence before saying one
+thing truly causes another."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 383,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `What would you do if two different departments report
+conflicting numbers for the same metric?`,
+    answer: `Sample approach: trace both numbers back to their source data and
+definitions (are they measuring the exact same thing, same date range,
+same filters?), identify where the discrepancy originates, and work
+with both teams to agree on a single, documented definition going
+forward (a "single source of truth").`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 384,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How do you decide the right level of detail for different
+audiences (execs vs analysts)?`,
+    answer: `Sample answer: "Executives generally want the headline number,
+the trend, and the 'so what' — not the methodology. Fellow analysts
+often want to see the underlying logic, assumptions, and data sources
+so they can validate or build on the work. I adjust depth and jargon
+accordingly."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 385,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `Describe a scenario where you had to say "the data doesn't
+support that" to a stakeholder.`,
+    answer: `Sample structure: describe a specific instance where a
+stakeholder's assumption wasn't backed by the data, how you presented
+the evidence respectfully and clearly, and how the conversation was
+resolved (tailor to a real example where possible).`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 386,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How would you approach building a report that leadership will
+use weekly?`,
+    answer: `Sample approach: confirm exactly which decisions it needs to
+support, keep the metric set small and consistent week to week, design
+for quick scanning, automate the data refresh so it's reliable without
+manual work, and gather feedback after the first few weeks to refine
+it.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 387,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `What is your process for handling an ad hoc data request that
+isn't clearly defined?`,
+    answer: `Sample answer: "I ask a few quick clarifying questions — what
+decision this supports, what time period/segment matters, and what
+format is most useful — rather than guessing and potentially
+delivering the wrong thing."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 388,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How do you make sure insights actually lead to action, not just
+get filed away?`,
+    answer: `Sample answer: "I try to pair every insight with a specific,
+concrete recommendation and a named owner or next step, rather than
+just presenting numbers and leaving interpretation entirely up to the
+audience."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 389,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `How would you explain a complicated SQL query's logic to
+someone who doesn't know SQL?`,
+    answer: `Sample answer: "I'd describe it in plain business terms — e.g.
+'this finds every customer who bought something in the last 90 days
+but hasn't ordered again since' — rather than walking through JOIN and
+WHERE clauses, and use a small example table if it helps."`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 390,
+    section: 32,
+    sectionTitle: 'Stakeholder Communication & Case Studies',
+    category: 'Behavioral',
+    question: `What is a "single source of truth," and why is it important in
+reporting?`,
+    answer: `A single, authoritative, agreed-upon data source/definition for a
+given metric that everyone across the organization references —
+important because it prevents conflicting numbers and wasted time
+reconciling different reports that claim to measure the same thing.`,
+    difficulty: 'Advanced',
+    tags: ['behavioral', 'section-32'],
+  },
+  {
+    id: 391,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `A company's website traffic is up but sales are down — how
+would you investigate?`,
+    answer: `Sample approach: check if the traffic increase is from a
+relevant, high-intent source (or low-quality/bot traffic); look at
+conversion rate specifically (not just traffic and sales in isolation);
+check for site/checkout issues; compare by segment (device, channel,
+geography) to isolate where the drop is concentrated; check pricing or
+inventory/stock-out issues.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 392,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `You're asked to reduce customer churn — what data would you look
+at first?`,
+    answer: `Sample approach: start with a cohort/retention analysis to see
+WHEN churn happens (e.g. early vs late lifecycle), then compare
+behavior/usage patterns of churned vs retained customers, look at
+support ticket history, pricing/plan changes, and any drop in product
+engagement before cancellation.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 393,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `Marketing wants to know which channel drives the highest quality
+leads — how would you approach this?`,
+    answer: `Sample approach: define "quality" clearly (e.g. leads that
+convert to paying customers, not just leads captured), then track
+leads by channel through the full funnel to actual conversion/revenue,
+using an attribution model rather than judging channels purely on
+volume of leads generated.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 394,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `A report has been showing the same number for three weeks
+straight — what would you check?`,
+    answer: `Sample approach: check whether the underlying data refresh/ETL
+job is actually running (a stale/failed refresh is the most common
+cause), verify the query/filter logic hasn't been accidentally
+hardcoded to a fixed date, and confirm with the source system whether
+the real-world number has plausibly been flat.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 395,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: 'How would you measure the success of a newly launched feature?',
+    answer: `Sample approach: define success metrics before launch (adoption
+rate, engagement, retention impact, or revenue impact depending on the
+feature's goal), compare a cohort who used the feature against one who
+didn't, and track results over a meaningful time window rather than
+just the first few days.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 396,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `You inherit a dashboard built by someone who left the company
+with no documentation — what do you do?`,
+    answer: `Sample approach: trace the data sources and logic behind each
+visual, cross-check the numbers against source systems to confirm
+they're still accurate, talk to the dashboard's actual users about
+what they rely on it for, and document what you find as you go so this
+doesn't happen again.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 397,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `A stakeholder asks for "all the data" without a clear question —
+how do you respond?`,
+    answer: `Sample answer: "I'd ask what decision or question they're
+ultimately trying to answer, since 'all the data' is rarely usable as-
+is — understanding the underlying goal lets me deliver something
+actually useful instead of an unfiltered data dump."`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 398,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `How would you identify which product to discontinue based on
+sales data?`,
+    answer: `Sample approach: look beyond raw sales volume — factor in profit
+margin, sales trend direction (not just current level), inventory/
+holding costs, and whether the product supports sales of other items
+(a "loss leader") before recommending discontinuation.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 399,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `You find that 20% of your data source's records have
+inconsistent formatting — what's your plan?`,
+    answer: `Sample approach: profile the inconsistencies to understand the
+pattern (one source system vs many, one time period vs ongoing),
+decide whether to fix at the source or in a transformation step,
+standardize using rules/mapping tables, and flag the root cause to the
+data owner so it doesn't keep recurring.`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
+  {
+    id: 400,
+    section: 33,
+    sectionTitle: 'Final Case Study & Scenario Questions',
+    category: 'General',
+    question: `Walk through how you'd design an experiment to test whether a
+price change increases revenue.`,
+    answer: `Sample approach: define the hypothesis and success metric
+(revenue, not just conversion, since price affects both); randomly
+split a comparable audience into control (old price) and test (new
+price) groups; run for long enough to reach statistical significance
+and account for any weekly/seasonal patterns; then compare total
+revenue per group, not just conversion rate, before rolling out
+company-wide.  add this questions also but remove duplicates if i send it to you currently if it already we have website add those are not avalaible1
+- DQL (Data Query Language)        -> SELECT
+Example:
+Example:`,
+    sqlCode: `/-- ============================================
+
+>
+<-- SQL Interview Questions WITH ANSWERS (Data Analyst / MIS)
+
+1
+/-- ============================================
+
+
+
+1
+/-- ============================================
+
+
+-- SECTION 1: SQL BASICS
+
+1
+/-- ============================================
+
+
+
+
+-- Q1. What is SQL?
+
+N
+L-- A1. SQL (Structured Query Language) is a standard language used to store,
+
+L
+J-- retrieve, manipulate, and manage data in relational database management
+
+@
+>-- systems (RDBMS) like MySQL, SQL Server, Oracle, PostgreSQL.
+
+
+
+6
+4-- Q2. What are the different types of SQL commands?
+
+
+-- A2.
+
+E
+C-- DDL (Data Definition Language)  -> CREATE, ALTER, DROP, TRUNCATE
+
+?
+=-- DML (Data Manipulation Language) -> INSERT, UPDATE, DELETE
+
+6
+4-- DCL (Data Control Language)      -> GRANT, REVOKE
+
+F
+D-- TCL (Transaction Control Language) -> COMMIT, ROLLBACK, SAVEPOINT
+
+/
+
+
+
+C
+A-- Q3. What is the difference between DELETE, TRUNCATE, and DROP?
+
+
+-- A3.
+
+l
+j-- DELETE  : DML, removes rows (can use WHERE), can be rolled back, slower (logs each row), triggers fire.
+
+y
+w-- TRUNCATE: DDL, removes all rows, cannot use WHERE, faster, resets identity, minimal logging, mostly cannot rollback.
+
+F
+D-- DROP    : DDL, removes entire table structure + data permanently.
+
+
+
+0
+.DELETE FROM Employees WHERE Department = 'HR';
+
+
+TRUNCATE TABLE Employees;
+
+
+DROP TABLE Employees;
+
+
+
+9
+7-- Q4. What is the difference between WHERE and HAVING?
+
+[
+Y-- A4. WHERE filters rows BEFORE grouping/aggregation and cannot use aggregate functions.
+
+J
+H-- HAVING filters groups AFTER GROUP BY and can use aggregate functions.
+
+
+
+)
+'SELECT Department, COUNT(*) AS EmpCount
+
+
+FROM Employees
+
+
+WHERE Status = 'Active'
+
+
+GROUP BY Department
+
+
+HAVING COUNT(*) > 5;
+
+
+
+
+-- Q5. What is GROUP BY?
+
+L
+J-- A5. GROUP BY groups rows that have the same values in specified columns
+
+U
+S-- into summary rows, typically used with aggregate functions like SUM, COUNT, AVG.
+
+/
+-SELECT Department, SUM(Salary) AS TotalSalary
+
+
+FROM Employees
+
+
+GROUP BY Department;
+
+
+
+
+-- Q6. What is ORDER BY?
+
+N
+L-- A6. ORDER BY sorts the result set by one or more columns, ascending (ASC,
+
+#
+!-- default) or descending (DESC).
+
+:
+8SELECT Name, Salary FROM Employees ORDER BY Salary DESC;
+
+
+
+
+-- Q7. What is DISTINCT?
+
+L
+J-- A7. DISTINCT removes duplicate rows from the result set, returning only
+
+
+-- unique values.
+
+,
+*SELECT DISTINCT Department FROM Employees;
+
+
+
+9
+7-- Q8. What is the difference between CHAR and VARCHAR?
+
+M
+K-- A8. CHAR is fixed-length (pads with spaces to defined length, faster for
+
+L
+J-- fixed-size data). VARCHAR is variable-length (stores only actual data +
+
+<
+:-- small overhead, saves space, better for variable text).
+
+
+
+`,
+    difficulty: 'Advanced',
+    tags: ['general', 'section-33'],
+  },
 ];
 
 // ============================================
@@ -2424,4 +5748,23 @@ export const sections = [
   { id: 12, title: 'Statistics & Probability', category: 'Statistics', questionRange: [121, 135] },
   { id: 13, title: 'Python for Data Analysis', category: 'Python', questionRange: [136, 150] },
   { id: 14, title: 'Data Cleaning & EDA', category: 'Python', questionRange: [151, 160] },
+  { id: 15, title: 'Data Governance & Data Quality', category: 'Data Governance', questionRange: [161, 170] },
+  { id: 16, title: 'Power BI', category: 'Power BI', questionRange: [171, 180] },
+  { id: 17, title: 'Business / Case / Behavioral Questions', category: 'Behavioral', questionRange: [181, 190] },
+  { id: 18, title: 'General Data Analyst Concepts', category: 'General', questionRange: [191, 200] },
+  { id: 19, title: 'Advanced Excel Functions & Analysis', category: 'Excel', questionRange: [201, 215] },
+  { id: 20, title: 'Advanced Tableau', category: 'Tableau', questionRange: [216, 230] },
+  { id: 21, title: 'SQL Window Functions & Query Optimization', category: 'SQL', questionRange: [231, 245] },
+  { id: 22, title: 'Advanced Python for Data Analysis', category: 'Python', questionRange: [246, 260] },
+  { id: 23, title: 'Advanced / Business Statistics', category: 'Statistics', questionRange: [261, 275] },
+  { id: 24, title: 'Data Warehousing, ETL & Data Pipelines', category: 'Data Governance', questionRange: [276, 290] },
+  { id: 25, title: 'Data Privacy, Compliance & Governance', category: 'Data Governance', questionRange: [291, 300] },
+  { id: 26, title: 'Advanced Power BI & DAX', category: 'Power BI', questionRange: [301, 310] },
+  { id: 27, title: 'Business Analytics & KPI Frameworks', category: 'General', questionRange: [311, 325] },
+  { id: 28, title: 'Behavioral & Career Development Questions', category: 'Behavioral', questionRange: [326, 340] },
+  { id: 29, title: 'Data Analyst Toolkit (Git, Jupyter, Google Sheets)', category: 'General', questionRange: [341, 350] },
+  { id: 30, title: 'Machine Learning Fundamentals for Analysts', category: 'Machine Learning', questionRange: [351, 365] },
+  { id: 31, title: 'Domain-Specific Analytics (Finance, Marketing, HR)', category: 'General', questionRange: [366, 375] },
+  { id: 32, title: 'Stakeholder Communication & Case Studies', category: 'Behavioral', questionRange: [376, 390] },
+  { id: 33, title: 'Final Case Study & Scenario Questions', category: 'General', questionRange: [391, 400] },
 ];
