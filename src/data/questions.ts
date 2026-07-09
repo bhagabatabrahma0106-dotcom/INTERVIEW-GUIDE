@@ -5728,34 +5728,1506 @@ J-- fixed-size data). VARCHAR is variable-length (stores only actual data +
     difficulty: 'Advanced',
     tags: ['general', 'section-33'],
   },
+  {
+    id: 401,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is the difference between a temp table (#temp) and a table
+variable (@table) in SQL Server?`,
+    answer: `A temp table behaves like a regular table (supports indexes,
+statistics, larger datasets, and is logged in tempdb) and is better for
+larger data volumes. A table variable has a smaller memory footprint,
+less overhead for small datasets, but no statistics and generally
+worse optimizer support for large data.`,
+    sqlCode: `CREATE TABLE #TempEmployees (EmpID INT, Salary DECIMAL(10,2));
+DECLARE @TempEmp TABLE (EmpID INT, Salary DECIMAL(10,2));`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 402,
+    section: 6,
+    sectionTitle: 'Advanced SQL',
+    category: 'SQL',
+    question: 'What is a recursive CTE, and when would you use one?',
+    answer: `A CTE that references itself, used to work with hierarchical or
+sequential data (e.g. an org chart, or generating a date series). It
+has an "anchor" query (base case) and a "recursive" query that repeats
+until no new rows are produced.`,
+    sqlCode: `WITH OrgChart AS (
+    SELECT EmpID, ManagerID, Name, 0 AS Level
+    FROM Employees WHERE ManagerID IS NULL
+    UNION ALL
+    SELECT e.EmpID, e.ManagerID, e.Name, o.Level + 1
+    FROM Employees e
+    JOIN OrgChart o ON e.ManagerID = o.EmpID
+)
+SELECT * FROM OrgChart;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-6'],
+  },
+  {
+    id: 403,
+    section: 4,
+    sectionTitle: 'Query Writing',
+    category: 'SQL',
+    question: 'Write a query to find employees who report to the same manager.',
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT ManagerID, COUNT(*) AS DirectReports, STRING_AGG(Name, ', ') AS Employees
+FROM Employees
+WHERE ManagerID IS NOT NULL
+GROUP BY ManagerID
+HAVING COUNT(*) > 1;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-4'],
+  },
+  {
+    id: 404,
+    section: 6,
+    sectionTitle: 'Advanced SQL',
+    category: 'SQL',
+    question: 'What is PIVOT / UNPIVOT in SQL?',
+    answer: `PIVOT rotates unique values from one column into multiple columns
+(rows to columns), commonly used for reporting. UNPIVOT does the
+reverse — turning columns back into rows.`,
+    sqlCode: `SELECT * FROM (
+    SELECT Department, MonthName, Amount FROM Sales
+) src
+PIVOT (SUM(Amount) FOR MonthName IN ([Jan],[Feb],[Mar])) AS pvt;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-6'],
+  },
+  {
+    id: 405,
+    section: 4,
+    sectionTitle: 'Query Writing',
+    category: 'SQL',
+    question: `Write a query that transposes rows into columns without using
+PIVOT (for databases that don't support it, like MySQL).`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT
+    Department,
+    SUM(CASE WHEN MonthName = 'Jan' THEN Amount ELSE 0 END) AS Jan,
+    SUM(CASE WHEN MonthName = 'Feb' THEN Amount ELSE 0 END) AS Feb,
+    SUM(CASE WHEN MonthName = 'Mar' THEN Amount ELSE 0 END) AS Mar
+FROM Sales
+GROUP BY Department;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-4'],
+  },
+  {
+    id: 406,
+    section: 2,
+    sectionTitle: 'SQL Joins',
+    category: 'SQL',
+    question: 'What is the difference between joining with ON vs USING?',
+    answer: `ON lets you specify any join condition, including columns with
+different names on each side. USING is a shorthand that only works
+when the join columns have the IDENTICAL name in both tables, and it
+automatically removes the duplicate column from the result.
+SELECT * FROM Orders JOIN Customers USING (CustomerID);  -- MySQL/Postgres`,
+    difficulty: 'Beginner',
+    tags: ['sql', 'section-2'],
+  },
+  {
+    id: 407,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `Write a query to find the longest streak of consecutive login days
+for a user (a classic "gaps and islands" problem).`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `WITH Ranked AS (
+    SELECT UserID, LoginDate,
+           DATEADD(DAY, -ROW_NUMBER() OVER (PARTITION BY UserID ORDER BY LoginDate), LoginDate) AS GroupKey
+    FROM UserLogins
+)
+SELECT UserID, MIN(LoginDate) AS StreakStart, MAX(LoginDate) AS StreakEnd, COUNT(*) AS StreakLength
+FROM Ranked
+GROUP BY UserID, GroupKey
+ORDER BY StreakLength DESC;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 408,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is a Materialized View, and how does it differ from a
+regular View?`,
+    answer: `A regular View is just a stored query — it runs live every time
+it's queried. A Materialized View physically stores the query's result
+set on disk, refreshed periodically, giving much faster read
+performance at the cost of potentially stale data between refreshes.`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 409,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `Write a query to calculate the difference in Amount between each
+order and the customer's previous order.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT CustomerID, OrderDate, Amount,
+       Amount - LAG(Amount) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS ChangeFromPrevious
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 410,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is the difference between a Scalar function and a
+Table-Valued function?`,
+    answer: `A Scalar function returns a single value and can be used anywhere
+an expression is valid (e.g. in a SELECT column). A Table-Valued
+function returns a full result set (rows and columns) and can be used
+in a FROM clause like a table.`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 411,
+    section: 6,
+    sectionTitle: 'Advanced SQL',
+    category: 'SQL',
+    question: `Write a query to return the 5th row of a result set without using
+LIMIT/OFFSET/TOP.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT * FROM Employees e1
+WHERE (SELECT COUNT(*) FROM Employees e2 WHERE e2.Salary > e1.Salary) = 4
+ORDER BY e1.Salary DESC;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-6'],
+  },
+  {
+    id: 412,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `What is SARGability, and why does it matter for query
+performance?`,
+    answer: `A "SARGable" (Search ARGument-able) predicate is one the database
+can use an index to evaluate efficiently, e.g. WHERE Salary > 50000.
+Wrapping a column in a function, like WHERE YEAR(OrderDate) = 2026,
+makes it non-SARGable — the optimizer usually can't use an index and
+must scan every row instead.
+Non-SARGable: WHERE YEAR(OrderDate) = 2026
+SARGable rewrite: WHERE OrderDate >= '2026-01-01' AND OrderDate < '2027-01-01'`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 413,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is the difference between a Local temp table (#temp) and a
+Global temp table (##temp) in SQL Server?`,
+    answer: `A Local temp table (#temp) is only visible to the session/
+connection that created it and is dropped when that session ends. A
+Global temp table (##temp) is visible to ALL sessions and is dropped
+only once the creating session ends AND no other session is
+referencing it.`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 414,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `Write a query using GROUPING SETS to get subtotals at multiple
+levels in one result set.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT Region, Department, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY GROUPING SETS ((Region, Department), (Region), ());`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 415,
+    section: 1,
+    sectionTitle: 'SQL Basics',
+    category: 'SQL',
+    question: `What is the difference between DELETE with a WHERE clause and
+DELETE without one?`,
+    answer: `DELETE with WHERE removes only the rows matching the condition.
+DELETE without WHERE removes ALL rows from the table (but keeps the
+table structure), and — unlike TRUNCATE — still logs each row
+deletion individually and can fire DELETE triggers.`,
+    difficulty: 'Beginner',
+    tags: ['sql', 'section-1'],
+  },
+  {
+    id: 416,
+    section: 4,
+    sectionTitle: 'Query Writing',
+    category: 'SQL',
+    question: `Write a query to flag potentially duplicate transactions made by
+the same customer within a 5-minute window.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT t1.TransactionID, t2.TransactionID AS PossibleDuplicateOf
+FROM Transactions t1
+JOIN Transactions t2
+    ON t1.CustomerID = t2.CustomerID
+    AND t1.Amount = t2.Amount
+    AND t1.TransactionID <> t2.TransactionID
+    AND ABS(DATEDIFF(SECOND, t1.TransactionTime, t2.TransactionTime)) <= 300;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-4'],
+  },
+  {
+    id: 417,
+    section: 1,
+    sectionTitle: 'SQL Basics',
+    category: 'SQL',
+    question: `What is the difference between INTERSECT and EXCEPT (MINUS in
+Oracle)?`,
+    answer: `INTERSECT returns only the rows that appear in BOTH query results.
+EXCEPT (MINUS in Oracle) returns rows that appear in the FIRST query's
+results but NOT in the second.`,
+    sqlCode: `SELECT CustomerID FROM Orders2025
+INTERSECT
+SELECT CustomerID FROM Orders2026;  -- customers who ordered in both years`,
+    difficulty: 'Beginner',
+    tags: ['sql', 'section-1'],
+  },
+  {
+    id: 418,
+    section: 4,
+    sectionTitle: 'Query Writing',
+    category: 'SQL',
+    question: `Write a query to turn 12 rows of monthly sales into a single row
+per year with 12 month columns.
+...continue for remaining months`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT Year,
+    SUM(CASE WHEN MonthNum=1 THEN Amount END) AS Jan,
+    SUM(CASE WHEN MonthNum=2 THEN Amount END) AS Feb,
+    SUM(CASE WHEN MonthNum=3 THEN Amount END) AS Mar
+FROM MonthlySales
+GROUP BY Year;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-4'],
+  },
+  {
+    id: 419,
+    section: 6,
+    sectionTitle: 'Advanced SQL',
+    category: 'SQL',
+    question: `Write a recursive CTE to generate a series of dates between two
+given dates.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `WITH DateSeries AS (
+    SELECT CAST('2026-01-01' AS DATE) AS DateValue
+    UNION ALL
+    SELECT DATEADD(DAY, 1, DateValue)
+    FROM DateSeries
+    WHERE DateValue < '2026-01-31'
+)
+SELECT * FROM DateSeries OPTION (MAXRECURSION 100);`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-6'],
+  },
+  {
+    id: 420,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is the difference between Statistics and Indexes in query
+optimization?`,
+    answer: `An Index is a physical structure that speeds up data retrieval.
+Statistics are metadata describing the distribution of values in a
+column (used by the query optimizer to estimate row counts and choose
+the best execution plan) — a table can have accurate indexes but
+outdated statistics, still leading to poor query plans.`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 421,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: 'Write a query to find the median value of a numeric column.',
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT AVG(Salary) AS MedianSalary
+FROM (
+    SELECT Salary,
+           ROW_NUMBER() OVER (ORDER BY Salary) AS rn,
+           COUNT(*) OVER () AS cnt
+    FROM Employees
+) t
+WHERE rn IN ((cnt+1)/2, (cnt+2)/2);`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 422,
+    section: 7,
+    sectionTitle: 'Database Concepts',
+    category: 'SQL',
+    question: `What is the difference between ON DELETE CASCADE and ON DELETE
+SET NULL for a foreign key constraint?`,
+    answer: `ON DELETE CASCADE automatically deletes child rows when the
+referenced parent row is deleted. ON DELETE SET NULL keeps the child
+rows but sets their foreign key column to NULL instead of deleting
+them.`,
+    sqlCode: `ALTER TABLE Orders
+ADD CONSTRAINT FK_Customer FOREIGN KEY (CustomerID)
+REFERENCES Customers(CustomerID) ON DELETE CASCADE;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-7'],
+  },
+  {
+    id: 423,
+    section: 4,
+    sectionTitle: 'Query Writing',
+    category: 'SQL',
+    question: `Write a query to detect gaps in a sequence of IDs (e.g. missing
+invoice numbers).`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT (t1.ID + 1) AS GapStart, (MIN(t2.ID) - 1) AS GapEnd
+FROM Invoices t1
+JOIN Invoices t2 ON t2.ID > t1.ID
+WHERE NOT EXISTS (SELECT 1 FROM Invoices t3 WHERE t3.ID = t1.ID + 1)
+GROUP BY t1.ID;`,
+    difficulty: 'Intermediate',
+    tags: ['sql', 'section-4'],
+  },
+  {
+    id: 424,
+    section: 3,
+    sectionTitle: 'Aggregate Functions',
+    category: 'SQL',
+    question: `What is the STRING_AGG (or GROUP_CONCAT in MySQL) function used
+for?`,
+    answer: `It concatenates values from multiple rows within a group into a
+single delimited string, useful for turning related row-level data
+into a readable summary.`,
+    sqlCode: `SELECT DeptID, STRING_AGG(Name, ', ') AS TeamMembers
+FROM Employees
+GROUP BY DeptID;`,
+    difficulty: 'Beginner',
+    tags: ['sql', 'section-3'],
+  },
+  {
+    id: 425,
+    section: 21,
+    sectionTitle: 'SQL Window Functions & Query Optimization',
+    category: 'SQL',
+    question: `Write a query to calculate a running (cumulative) count of
+distinct customers who had placed at least one order, by day.
+Note: some databases don't support DISTINCT inside a window function directly;
+an alternative is a correlated subquery counting distinct customers up to that date.`,
+    answer: 'Refer to the SQL implementation below for the solution query.',
+    sqlCode: `SELECT OrderDate,
+       COUNT(DISTINCT CustomerID) OVER (ORDER BY OrderDate ROWS UNBOUNDED PRECEDING) AS RunningDistinctCustomers
+FROM Orders;`,
+    difficulty: 'Advanced',
+    tags: ['sql', 'section-21'],
+  },
+  {
+    id: 426,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the CHOOSE function used for?',
+    answer: `CHOOSE returns a value from a list based on a given index number,
+e.g. CHOOSE(2, "Low", "Medium", "High") returns "Medium" — useful for
+mapping a numeric code to a label without a lookup table.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 427,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the difference between LARGE/SMALL functions and MAX/MIN?',
+    answer: `MAX/MIN return only the single highest/lowest value in a range.
+LARGE(range, k) and SMALL(range, k) return the k-th largest/smallest
+value, letting you retrieve the 2nd, 3rd, or any ranked value, not just
+the very top or bottom.`,
+    sqlCode: '=LARGE(B2:B20, 2)  -- 2nd highest value',
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 428,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the difference between RANK.EQ and RANK.AVG?',
+    answer: `RANK.EQ assigns the same (top) rank to tied values, like SQL's
+RANK() — leaving a gap afterward. RANK.AVG assigns tied values the
+AVERAGE of the ranks they would have occupied.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 429,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the SUMPRODUCT function used for?',
+    answer: `SUMPRODUCT multiplies corresponding elements of two or more
+arrays/ranges and returns the sum of those products — often used for
+weighted calculations or as a flexible alternative to SUMIFS with
+multiple complex conditions.`,
+    sqlCode: '=SUMPRODUCT((A2:A100="Sales")*(B2:B100>50000)*C2:C100)',
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 430,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: `What is the difference between match types 0, 1, and -1 in the
+MATCH function?`,
+    answer: `Match type 0 finds an EXACT match. Match type 1 (default) finds
+the largest value ≤ the lookup value, requiring the range to be sorted
+ascending. Match type -1 finds the smallest value ≥ the lookup value,
+requiring the range to be sorted descending.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 431,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the AGGREGATE function, and how does it differ from
+SUBTOTAL?`,
+    answer: `Both can perform calculations while ignoring filtered/hidden rows
+or errors. AGGREGATE supports more functions (19 vs SUBTOTAL's 11,
+including LARGE, SMALL, PERCENTILE) and has explicit options to ignore
+errors, hidden rows, or other AGGREGATE/SUBTOTAL results.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 432,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the TRANSPOSE function used for?',
+    answer: `TRANSPOSE flips a range's orientation — converting rows to
+columns and vice versa — useful for reshaping data without manually
+re-entering it.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 433,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is a Waterfall chart, and how do you build one in Excel?',
+    answer: `A chart showing how a starting value is increased or decreased by
+a series of positive/negative changes to reach a final value (e.g.
+Revenue → Costs → Net Profit). Modern Excel has a built-in Waterfall
+chart type (Insert > Charts > Waterfall); older versions build it
+manually using a stacked bar chart with an invisible "base" series.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 434,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the difference between AutoFilter and Advanced Filter?',
+    answer: `AutoFilter provides simple, dropdown-based filtering on individual
+columns. Advanced Filter allows complex, multi-condition criteria
+(including OR logic across columns) defined in a separate criteria
+range, and can extract filtered results to a new location.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 435,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What are the CUBE functions (CUBEVALUE, CUBEMEMBER, etc.) used
+for?`,
+    answer: `They retrieve specific data (values, members, sets) directly from
+an OLAP cube data source (like SQL Server Analysis Services) into
+Excel cells, without needing a Pivot Table — useful for building highly
+custom-formatted reports from OLAP data.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 436,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What are RANDARRAY and SEQUENCE dynamic array functions used
+for?`,
+    answer: `RANDARRAY generates an array of random numbers of a specified
+size/range. SEQUENCE generates an array of sequential numbers (e.g.
+1 through 12) — both "spill" automatically across multiple cells,
+useful for generating test data or dynamic labels.`,
+    sqlCode: '=SEQUENCE(12,1,1,1)  -- 1 to 12 down a column',
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 437,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is a Sparkline?',
+    answer: `A tiny chart embedded inside a single cell, showing a compact
+visual trend (line, column, or win/loss) for a row of data — useful for
+dashboards where full-size charts would take too much space.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 438,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: `What is the difference between Paste Special "Values" and
+"Formulas"?`,
+    answer: `Paste Special > Values pastes only the calculated RESULT of a
+formula, removing the underlying formula (freezing the number).
+Paste Special > Formulas pastes the formula itself (adjusting relative
+references as needed), without carrying over formatting.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 439,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the Camera tool in Excel?',
+    answer: `A tool that inserts a live, linked picture of a range of cells —
+if the source range's values change, the "photo" updates automatically
+— useful for building a summary view that pulls from data scattered
+across a workbook without repeating formulas.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 440,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between Scenario Manager and a Data Table
+in What-If Analysis?`,
+    answer: `Scenario Manager lets you save and switch between several named
+sets of input values (e.g. "Best Case", "Worst Case") affecting
+multiple cells at once. A Data Table shows how a formula's result
+changes across a RANGE of one or two input values automatically,
+generating a full table of outcomes.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 441,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the EOMONTH function used for?',
+    answer: `EOMONTH returns the last day of the month, a specified number of
+months before or after a given date — commonly used to calculate month-
+end dates for reporting periods.`,
+    sqlCode: `=EOMONTH(A2, 0)   -- last day of the month in A2
+=EOMONTH(A2, -1)  -- last day of the PREVIOUS month`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 442,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the EOMONTH function used for?',
+    answer: `EOMONTH returns the last day of the month, a specified number of
+months before or after a given date — commonly used to calculate month-
+end dates for reporting periods.`,
+    sqlCode: `=EOMONTH(A2, 0)   -- last day of the month in A2
+=EOMONTH(A2, -1)  -- last day of the PREVIOUS month`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 443,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: `What is the difference between DATEDIF and simple date
+subtraction?`,
+    answer: `Simple subtraction (B1-A1) gives the number of days between two
+dates. DATEDIF can return the difference in other units too — years,
+months, or days — and can express things like "2 years, 3 months" that
+plain subtraction cannot.`,
+    sqlCode: '=DATEDIF(A2, B2, "y")  -- full years between two dates',
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 444,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between a legacy Array Formula
+(Ctrl+Shift+Enter) and a modern Dynamic Array formula?`,
+    answer: `Legacy array formulas (older Excel) required pressing Ctrl+Shift+
+Enter and returned results only into the cells you'd pre-selected.
+Modern Dynamic Array formulas (current Excel) automatically "spill"
+results into as many cells as needed, entered like a normal formula
+with no special keystroke.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 445,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the LET function used for?',
+    answer: `LET lets you define named variables within a single formula,
+assigning a calculation to a name and reusing it multiple times —
+making complex formulas easier to read and improving performance by
+avoiding repeated calculation of the same sub-expression.`,
+    sqlCode: '=LET(x, A2*1.1, y, B2*0.9, x+y)',
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 446,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: 'What is the LAMBDA function used for?',
+    answer: `LAMBDA lets you create your own custom, reusable functions
+directly in Excel using a formula (without VBA), which can then be
+named and called like any built-in function throughout the workbook.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 447,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What are Custom Number Formats, and give an example.',
+    answer: `Custom Number Formats control how a value is DISPLAYED without
+changing its underlying value — e.g. formatting 1000000 to display as
+"$1.0M" or showing negative numbers in red in parentheses.
+Example format code: #,##0.0,,"M"  -- displays 1,500,000 as "1.5M"`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 448,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is the difference between a Linked Table and an Imported
+Table in Excel's Power Query?`,
+    answer: `An Imported (loaded) table brings a static copy of the
+transformed data into the workbook, refreshed only on demand. A
+connection-only / linked query keeps the transformation steps defined
+but doesn't load data into a worksheet directly, often used as a
+staging step feeding into other queries or the Data Model.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 449,
+    section: 10,
+    sectionTitle: 'Excel for Data Analysts',
+    category: 'Excel',
+    question: 'What is the Watch Window used for in Excel?',
+    answer: `A tool that lets you monitor the value of specific cells (even
+ones on other sheets, off-screen) in a floating window, useful for
+tracking key results while editing unrelated parts of a large
+workbook.`,
+    difficulty: 'Beginner',
+    tags: ['excel', 'section-10'],
+  },
+  {
+    id: 450,
+    section: 19,
+    sectionTitle: 'Advanced Excel Functions & Analysis',
+    category: 'Excel',
+    question: `What is a circular reference, and when might you intentionally
+allow one using iterative calculation?`,
+    answer: `A circular reference occurs when a formula refers back to its own
+cell, directly or indirectly, normally causing an error. Enabling
+Iterative Calculation (File > Options > Formulas) intentionally allows
+this for specific cases, like circular interest calculations, where
+Excel repeats the calculation a set number of times until the result
+stabilizes.`,
+    difficulty: 'Intermediate',
+    tags: ['excel', 'section-19'],
+  },
+  {
+    id: 451,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is a Waterfall chart in Tableau, and when would you use it?',
+    answer: `A chart showing how a value changes step by step through a series
+of positive and negative contributions (e.g. Revenue → various cost
+categories → Net Profit) — built in Tableau using a running total
+table calculation on a Gantt-style bar mark.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 452,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is a Bump Chart used for?',
+    answer: `A line chart that tracks how RANKINGS (not raw values) of
+categories change over time — e.g. how product sales rank shifts month
+to month — typically built using the RANK() table calculation.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 453,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is a Gantt chart in Tableau used for?',
+    answer: `A chart showing the duration of tasks/events over time as
+horizontal bars, commonly used for project timelines or scheduling —
+built using the Gantt Bar mark type with a start date and a duration
+measure.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 454,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the difference between the Color, Size, Label, and Detail
+shelves on the Marks card?`,
+    answer: `Color encodes a field using color to distinguish categories or
+show a gradient. Size scales marks by a measure's value. Label displays
+text values directly on marks. Detail adds a field to control the
+level of granularity shown WITHOUT visibly encoding it (no color/size/
+label change).`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 455,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is a Highlight Table?',
+    answer: `A crosstab (table) view where cell background color intensity
+represents a measure's value, combining the precision of a table with
+the visual pattern-spotting of a heat map.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 456,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the difference between a Quick Filter and a
+Parameter-driven filter?`,
+    answer: `A Quick Filter directly restricts which data rows are shown and
+is tied to a specific field's actual values. A Parameter is an
+independent, user-controlled input value that can drive a calculated
+field's logic (including custom filter behavior), and isn't limited to
+the values of one specific field.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 457,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is Tableau\'s Data Interpreter used for?',
+    answer: `A feature that automatically detects and cleans up common issues
+when connecting to messy Excel files — like removing extra header
+rows, merged cells, or subtotal rows — before the data is loaded for
+analysis.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 458,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is a Hierarchy in Tableau, and how do you create one?',
+    answer: `A Hierarchy groups related dimensions into a drill-down structure
+(e.g. Country > State > City), letting users expand/collapse levels of
+detail directly on a visualization. Created by dragging one dimension
+onto another in the Data pane.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 459,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is the difference between Drill Down and Drill Through in
+Tableau?`,
+    answer: `Drill Down means expanding a hierarchy to see more granular detail
+within the SAME view (e.g. Country to City). Drill Through means
+clicking a mark to NAVIGATE to a different, more detailed sheet or
+dashboard, typically set up via a dashboard action.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 460,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is the difference between .twb and .twbx file formats?',
+    answer: `A .twb file is a Tableau Workbook containing only the workbook's
+structure/formatting and a reference to its data source(s), not the
+data itself. A .twbx is a packaged workbook — a zipped file containing
+the .twb plus any local data extracts/files — making it portable and
+shareable without needing separate data files.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 461,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is Tableau\'s Explain Data feature?',
+    answer: `An AI-assisted feature that analyzes a selected data point and
+automatically suggests statistical explanations for why that value
+might be unusual (e.g. correlated fields, outliers, or contributing
+factors), helping speed up root-cause exploration.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 462,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'Does Tableau support Spider/Radar charts natively?',
+    answer: `Not as a built-in chart type — Tableau doesn't have a native radar
+chart option, though one can be manually constructed using
+trigonometric calculated fields (converting values to X/Y coordinates)
+and polygon marks, which is fairly advanced.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 463,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is the INDEX() table calculation function used for?',
+    answer: `INDEX() returns the current row's position number within the
+partition of the table/view, often used to create ranking, numbering
+rows, or building calculations like "highlight every 5th row."`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 464,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is the difference between WINDOW_SUM and a normal SUM
+aggregation in Tableau?`,
+    answer: `SUM() aggregates raw data rows into a single value per grouping.
+WINDOW_SUM() is a table calculation that operates on the ALREADY
+aggregated values currently shown in the view (e.g. summing values
+across all visible rows/columns), which is computed differently and
+can behave differently when filters or the view's structure change.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 465,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the Page Shelf used for (sometimes associated with
+"motion charts")?`,
+    answer: `Placing a field on the Pages shelf splits the view into a series
+of "pages," one per value of that field, with playback controls — often
+used to animate how a chart changes over time (e.g. quarter by
+quarter).`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 466,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the ATTR() aggregation, and when does it show an
+asterisk (*)?`,
+    answer: `ATTR() returns a dimension's value if all rows in the current
+aggregation share the SAME value, or displays an asterisk (*) if the
+values are mixed — used internally by Tableau whenever a dimension is
+placed somewhere expecting an aggregated value.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 467,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is Data Densification in Tableau?',
+    answer: `A process where Tableau automatically generates additional "phantom"
+data points to fill in missing combinations (e.g. dates or categories
+with no underlying data rows), often needed to make line charts or
+table calculations display continuously without visual gaps.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 468,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the difference between a Continuous and a Discrete date
+field, specifically regarding the axis it creates?`,
+    answer: `A Discrete date creates separate, distinct labeled headers (e.g.
+individual months as blue pills), useful for exact groupings. A
+Continuous date creates a true continuous axis (green pill) suitable
+for trend lines, forecasting, and reference lines — since it's treated
+as a measurable range rather than fixed categories.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 469,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is a Custom SQL connection in Tableau, and when would you
+use it?`,
+    answer: `A way to connect Tableau to a data source using a hand-written SQL
+query instead of Tableau's default table/join interface — used when
+you need complex logic (custom joins, calculations, filtering) that's
+easier to express directly in SQL, though it can be less performant
+than native connections.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 470,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What is the difference between a Text Table (Crosstab) and a
+Highlight Table?`,
+    answer: `Both display data in a grid of rows and columns. A Text Table
+shows only the raw numeric values. A Highlight Table adds background
+color shading based on the measure's value, layering a heat-map effect
+on top of the same tabular structure.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 471,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What are Tooltips in Tableau, and how can they be customized?',
+    answer: `Tooltips are the pop-up details shown when hovering over a mark.
+They can be customized with formatted text, additional fields, embedded
+mini-charts ("Viz in Tooltip"), and even dashboard actions triggered
+directly from within the tooltip.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 472,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: 'What is the difference between a Filled Map and a Symbol Map?',
+    answer: `A Filled Map shades entire geographic areas (e.g. states,
+countries) based on a measure's value, like a choropleth map. A Symbol
+Map places a marker/circle at specific geographic points, sized or
+colored by a measure, without shading the underlying area.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 473,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: 'What is Tableau\'s Explain Data feature?',
+    answer: `An AI-assisted feature that analyzes a selected data point and
+automatically suggests statistical explanations for why that value
+might be unusual (e.g. correlated fields, outliers, or contributing
+factors), helping speed up root-cause exploration.`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 474,
+    section: 20,
+    sectionTitle: 'Advanced Tableau',
+    category: 'Tableau',
+    question: `What is the difference between FIXED, INCLUDE, and EXCLUDE LOD
+expressions?`,
+    answer: `FIXED computes at exactly the dimension(s) specified, ignoring
+what's in the view entirely. INCLUDE computes at a finer grain than the
+view by adding a dimension IN ADDITION to what's on the view. EXCLUDE
+computes at a coarser grain by removing a dimension that IS on the
+view — e.g. showing each order's amount alongside that customer's
+overall total (FIXED), or order-level detail alongside a slightly more
+granular sub-total (INCLUDE).`,
+    difficulty: 'Advanced',
+    tags: ['tableau', 'section-20'],
+  },
+  {
+    id: 475,
+    section: 11,
+    sectionTitle: 'Tableau / Data Visualization',
+    category: 'Tableau',
+    question: `What changes when you Publish a workbook to Tableau Server versus
+saving it locally?`,
+    answer: `Publishing uploads the workbook (and optionally its data source or
+extract) to a shared server where others can view/interact with it via
+a browser without needing Tableau Desktop, with permissions, scheduled
+refreshes, and version history managed centrally — a local save keeps
+the file only on your machine, viewable only by someone with Tableau
+Desktop/Reader and the file itself.`,
+    difficulty: 'Intermediate',
+    tags: ['tableau', 'section-11'],
+  },
+  {
+    id: 476,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between a Python module and a package?',
+    answer: `A module is a single .py file containing Python code (functions,
+classes, variables) that can be imported. A package is a directory of
+multiple related modules, containing an __init__.py file, that can be
+imported as a single namespace.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 477,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the try/except/finally block used for?',
+    answer: `Exception handling: code in \`try\` is attempted; if it raises an
+error, the matching \`except\` block runs instead of crashing the
+program; \`finally\` runs regardless of whether an error occurred,
+commonly used for cleanup (like closing a file).`,
+    pythonCode: `try:
+    df = pd.read_csv("data.csv")
+except FileNotFoundError:
+    print("File not found — check the path")
+finally:
+    print("Done attempting to load data")`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 478,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between *args and **kwargs?',
+    answer: `*args lets a function accept any number of extra POSITIONAL
+arguments, collected into a tuple. **kwargs lets a function accept any
+number of extra KEYWORD arguments, collected into a dictionary.`,
+    pythonCode: `def summarize(*args, **kwargs):
+    print(args)     -- e.g. (1, 2, 3)
+    print(kwargs)   -- e.g. {'label': 'Q1 Sales'}`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 479,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between a function and a method in
+Python?`,
+    answer: `A function is a standalone, independently callable block of code
+(e.g. len(x)). A method is a function that belongs to and is called on
+an object (e.g. df.head()), implicitly operating on that object's
+data.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 480,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What are f-strings, and why are they generally preferred over
+.format()?`,
+    answer: `f-strings (formatted string literals, prefixed with f) let you
+embed expressions directly inside a string using curly braces —
+they're more readable and faster to execute than the older .format()
+method or % formatting.`,
+    pythonCode: `name, salary = "Bhagabata", 55000
+print(f"{name} earns {salary:,.0f}")`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 481,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between Pandas .duplicated() and
+.drop_duplicates()?`,
+    answer: `.duplicated() returns a Boolean Series flagging which rows are
+duplicates (True/False), useful for inspection. .drop_duplicates()
+actually removes the duplicate rows and returns the cleaned DataFrame.`,
+    pythonCode: `df[df.duplicated(subset="Email", keep=False)]  -- inspect all duplicate pairs
+df.drop_duplicates(subset="Email", keep="first")  -- remove them`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 482,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between .query() and boolean indexing in
+Pandas?`,
+    answer: `Both filter rows based on a condition. .query() lets you write the
+condition as a readable string expression (useful for long/complex
+filters and referencing external variables with @). Boolean indexing
+uses Python conditional syntax directly on the DataFrame — functionally
+similar, mostly a readability/style choice.`,
+    pythonCode: `df.query("Salary > 50000 and Department == 'Sales'")
+df[(df["Salary"] > 50000) & (df["Department"] == "Sales")]`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 483,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `How do you convert a text column to a proper date type in
+Pandas?`,
+    answer: `Use pd.to_datetime(), which parses common date string formats
+into Pandas' datetime64 dtype, enabling date arithmetic and time-based
+operations.`,
+    pythonCode: 'df["OrderDate"] = pd.to_datetime(df["OrderDate"], format="%d-%m-%Y")',
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 484,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between pd.to_datetime() and Python's
+built-in datetime.strptime()?`,
+    answer: `strptime() converts a single string to a single datetime object
+and requires you to specify the exact format. pd.to_datetime() is
+vectorized (works on an entire Series/column at once), can often infer
+the format automatically, and integrates directly with Pandas'
+datetime functionality.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 485,
+    section: 14,
+    sectionTitle: 'Data Cleaning & EDA',
+    category: 'Python',
+    question: `What is the difference between .astype() and pd.to_numeric() for
+converting data types?`,
+    answer: `.astype() performs a direct type conversion and will raise an
+error (or produce unexpected results) if a value can't be converted
+cleanly. pd.to_numeric() is specifically built for numeric conversion
+and has an \`errors="coerce"\` option to turn unconvertible values into
+NaN instead of crashing — useful for messy real-world data.`,
+    pythonCode: 'df["Salary"] = pd.to_numeric(df["Salary"], errors="coerce")',
+    difficulty: 'Intermediate',
+    tags: ['python', 'section-14'],
+  },
+  {
+    id: 486,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between Matplotlib's plt.plot() and
+plt.scatter()?`,
+    answer: `plt.plot() draws connected lines between data points by default
+(good for trends over a continuous axis like time). plt.scatter() plots
+individual, unconnected points (good for showing relationships/
+distribution between two variables without implying a sequence).`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 487,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is Seaborn\'s sns.heatmap() used for?',
+    answer: `It visualizes a matrix of values (commonly a correlation matrix)
+as a grid of colored cells, making it easy to spot strong positive/
+negative relationships between many variables at once.`,
+    pythonCode: `import seaborn as sns
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 488,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between .corr() and .cov() in Pandas?',
+    answer: `.corr() calculates the correlation coefficient (standardized,
+always between -1 and 1) between columns, making strength of
+relationship easy to compare across variables. .cov() calculates
+covariance, which is NOT standardized and depends on the scale/units
+of the variables, making it harder to interpret directly.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 489,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is a Pandas crosstab, and how does it differ from
+pivot_table?`,
+    answer: `pd.crosstab() specifically builds a frequency table (counts, by
+default) of the relationship between two or more categorical columns.
+pivot_table() is more general-purpose, letting you choose the
+aggregation function (sum, mean, etc.) and value columns explicitly.`,
+    pythonCode: 'pd.crosstab(df["Region"], df["ProductCategory"])',
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 490,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between .rename() and .set_axis() in
+Pandas?`,
+    answer: `.rename() lets you rename SPECIFIC columns/index labels using a
+dictionary mapping old names to new ones. .set_axis() replaces ALL of
+the labels along an axis at once with a new complete list, in order.`,
+    pythonCode: `df.rename(columns={"emp_name":"Name"})
+df.set_axis(["Name","Dept","Salary"], axis=1)`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 491,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: 'What is method chaining in Pandas, and why is it useful?',
+    answer: `Method chaining links multiple Pandas operations together in a
+single continuous statement (e.g. filter → groupby → sort), instead of
+reassigning to intermediate variables at each step — often more
+readable and avoids cluttering the namespace with temporary variables.`,
+    pythonCode: `result = (df[df["Salary"] > 40000]
+          .groupby("Department")["Salary"]
+          .mean()
+          .sort_values(ascending=False))`,
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 492,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between the default .join() behavior and
+an explicit merge with how='outer'?`,
+    answer: `.join() by default performs a LEFT join based on the DataFrame's
+index. An explicit pd.merge(..., how='outer') keeps ALL rows from
+BOTH DataFrames, filling in NaN where there's no match on either side —
+the two aren't equivalent unless you explicitly set the join type.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 493,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is JSON normalization (pd.json_normalize) used for?',
+    answer: `It flattens nested JSON data (e.g. from an API response, with
+nested dictionaries/lists) into a flat, tabular Pandas DataFrame,
+making semi-structured data usable for standard row/column analysis.`,
+    pythonCode: `import pandas as pd
+pd.json_normalize(api_response["results"])`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 494,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between reading a file with Python's
+built-in open() versus pd.read_csv()?`,
+    answer: `open() gives you raw, line-by-line text access to a file with no
+automatic parsing — you'd need to manually split/parse each line.
+pd.read_csv() automatically parses delimited data directly into a
+structured DataFrame, handling headers, data types, and encoding
+issues with far less code.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 495,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is a good practice for exception handling when reading
+external data files in a script?`,
+    answer: `Wrap the read operation in a try/except block catching specific,
+expected exceptions (FileNotFoundError, pd.errors.ParserError,
+UnicodeDecodeError), log or print a clear message about what went
+wrong, and avoid a bare \`except:\` that silently swallows unrelated
+errors and makes debugging harder.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 496,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: `What is a Python set, and how does it differ from a list for
+deduplication tasks?`,
+    answer: `A set is an unordered collection of unique elements — converting a
+list to a set automatically removes duplicates, and membership checks
+(\`x in my_set\`) are much faster than in a list for large collections,
+since sets use hashing internally.`,
+    pythonCode: 'unique_ids = set(df["CustomerID"])',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 497,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between == and .equals() when comparing
+two Pandas DataFrames?`,
+    answer: `df1 == df2 compares element-by-element and returns a DataFrame of
+True/False values (and raises an error if shapes don't match).
+df1.equals(df2) returns a single True/False indicating whether the two
+DataFrames are identical in shape, values, AND dtypes, treating NaNs
+in the same position as equal.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 498,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: `What is the difference between using inplace=True and
+reassignment in Pandas operations?`,
+    answer: `inplace=True modifies the original DataFrame directly and returns
+None. Reassignment (df = df.dropna()) creates a new DataFrame object
+with the change applied, leaving the option to keep the original
+around — reassignment is generally the more predictable, recommended
+style, since inplace can sometimes silently fail or behave
+inconsistently depending on the operation.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
+  {
+    id: 499,
+    section: 22,
+    sectionTitle: 'Advanced Python for Data Analysis',
+    category: 'Python',
+    question: `What is the SettingWithCopyWarning in Pandas, and what typically
+causes it?`,
+    answer: `A warning Pandas raises when you try to modify a DataFrame that
+might be a "view" (a reference) rather than an independent copy of the
+original data — commonly caused by chained indexing like
+df[df.A > 5]["B"] = 10. Fix it by using .loc explicitly, or by making
+an intentional copy first with .copy().`,
+    pythonCode: 'df.loc[df["A"] > 5, "B"] = 10  -- correct approach',
+    difficulty: 'Advanced',
+    tags: ['python', 'section-22'],
+  },
+  {
+    id: 500,
+    section: 13,
+    sectionTitle: 'Python for Data Analysis',
+    category: 'Python',
+    question: 'What is the difference between NaN and None in Pandas?',
+    answer: `None is Python's generic "no value" object and can appear in
+object-dtype columns. NaN (Not a Number, from NumPy) is the standard
+placeholder Pandas uses for missing NUMERIC data and supports
+vectorized math/comparison operations that treat it consistently as
+missing — Pandas often silently converts None to NaN in numeric
+columns for this reason.`,
+    difficulty: 'Beginner',
+    tags: ['python', 'section-13'],
+  },
 ];
 
 // ============================================
 // SECTIONS METADATA
 // ============================================
 export const sections = [
-  { id: 1, title: 'SQL Basics', category: 'SQL', questionRange: [1, 10] },
-  { id: 2, title: 'SQL Joins', category: 'SQL', questionRange: [11, 20] },
-  { id: 3, title: 'Aggregate Functions', category: 'SQL', questionRange: [21, 30] },
-  { id: 4, title: 'Query Writing', category: 'SQL', questionRange: [31, 40] },
+  { id: 1, title: 'SQL Basics', category: 'SQL', questionRange: [1, 417] },
+  { id: 2, title: 'SQL Joins', category: 'SQL', questionRange: [11, 406] },
+  { id: 3, title: 'Aggregate Functions', category: 'SQL', questionRange: [21, 424] },
+  { id: 4, title: 'Query Writing', category: 'SQL', questionRange: [31, 423] },
   { id: 5, title: 'Scenario-Based SQL', category: 'SQL', questionRange: [41, 50] },
-  { id: 6, title: 'Advanced SQL', category: 'SQL', questionRange: [51, 60] },
-  { id: 7, title: 'Database Concepts', category: 'SQL', questionRange: [61, 70] },
+  { id: 6, title: 'Advanced SQL', category: 'SQL', questionRange: [51, 419] },
+  { id: 7, title: 'Database Concepts', category: 'SQL', questionRange: [61, 422] },
   { id: 8, title: 'Data Analyst SQL', category: 'SQL', questionRange: [71, 80] },
   { id: 9, title: 'Interview Closing Questions', category: 'Behavioral', questionRange: [81, 90] },
-  { id: 10, title: 'Excel for Data Analysts', category: 'Excel', questionRange: [91, 105] },
-  { id: 11, title: 'Tableau / Data Visualization', category: 'Tableau', questionRange: [106, 120] },
+  { id: 10, title: 'Excel for Data Analysts', category: 'Excel', questionRange: [91, 449] },
+  { id: 11, title: 'Tableau / Data Visualization', category: 'Tableau', questionRange: [106, 475] },
   { id: 12, title: 'Statistics & Probability', category: 'Statistics', questionRange: [121, 135] },
-  { id: 13, title: 'Python for Data Analysis', category: 'Python', questionRange: [136, 150] },
-  { id: 14, title: 'Data Cleaning & EDA', category: 'Python', questionRange: [151, 160] },
+  { id: 13, title: 'Python for Data Analysis', category: 'Python', questionRange: [136, 500] },
+  { id: 14, title: 'Data Cleaning & EDA', category: 'Python', questionRange: [151, 485] },
   { id: 15, title: 'Data Governance & Data Quality', category: 'Data Governance', questionRange: [161, 170] },
   { id: 16, title: 'Power BI', category: 'Power BI', questionRange: [171, 180] },
   { id: 17, title: 'Business / Case / Behavioral Questions', category: 'Behavioral', questionRange: [181, 190] },
   { id: 18, title: 'General Data Analyst Concepts', category: 'General', questionRange: [191, 200] },
-  { id: 19, title: 'Advanced Excel Functions & Analysis', category: 'Excel', questionRange: [201, 215] },
-  { id: 20, title: 'Advanced Tableau', category: 'Tableau', questionRange: [216, 230] },
-  { id: 21, title: 'SQL Window Functions & Query Optimization', category: 'SQL', questionRange: [231, 245] },
-  { id: 22, title: 'Advanced Python for Data Analysis', category: 'Python', questionRange: [246, 260] },
+  { id: 19, title: 'Advanced Excel Functions & Analysis', category: 'Excel', questionRange: [201, 450] },
+  { id: 20, title: 'Advanced Tableau', category: 'Tableau', questionRange: [216, 474] },
+  { id: 21, title: 'SQL Window Functions & Query Optimization', category: 'SQL', questionRange: [231, 425] },
+  { id: 22, title: 'Advanced Python for Data Analysis', category: 'Python', questionRange: [246, 499] },
   { id: 23, title: 'Advanced / Business Statistics', category: 'Statistics', questionRange: [261, 275] },
   { id: 24, title: 'Data Warehousing, ETL & Data Pipelines', category: 'Data Governance', questionRange: [276, 290] },
   { id: 25, title: 'Data Privacy, Compliance & Governance', category: 'Data Governance', questionRange: [291, 300] },
